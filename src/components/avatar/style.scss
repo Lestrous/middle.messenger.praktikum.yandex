@@ -1,0 +1,10 @@
+@import '../../styles/colors';
+
+.avatar {
+  width: 130px;
+  height: 130px;
+  border: none;
+  border-radius: 65px;
+  background-color: $colorGreyEF;
+  cursor: pointer;
+}

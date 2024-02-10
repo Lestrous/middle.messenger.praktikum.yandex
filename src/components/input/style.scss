@@ -1,0 +1,17 @@
+@import '../../styles/colors';
+
+@mixin input($height, $color, $backgroundColor, $borderRadius, $fontSize) {
+  width: 100%;
+  height: $height + 0px;
+  border: none;
+  border-radius: $borderRadius;
+  outline: none;
+  color: $color;
+  background-color: $backgroundColor;
+  font-weight: 500;
+  font-size: $fontSize + 0px;
+}
+
+.form_input {
+  @include input(27, $black, transparent, 0, 13);
+}

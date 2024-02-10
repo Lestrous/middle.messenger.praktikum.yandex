@@ -1,0 +1,24 @@
+@import '../../styles/colors';
+
+.info-block {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding-bottom: 10px;
+  border-bottom: 1px solid $colorGreyEA;
+
+  &:last-of-type {
+    border-bottom: none;
+  }
+
+  &_param {
+    font-size: 13px;
+    color: $black;
+  }
+
+  &_value {
+    font-size: 13px;
+    color: $colorGrey99;
+  }
+}

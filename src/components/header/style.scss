@@ -1,0 +1,27 @@
+@import '../../styles/colors';
+
+@mixin header($fontSize, $lineHeight) {
+  font-weight: 500;
+  font-size: $fontSize + 0px;
+  line-height: $lineHeight + 0px;
+}
+
+.header_1 {
+  @include header(40, 40);
+}
+
+.header_2 {
+  @include header(20, 20);
+}
+
+.header_3 {
+  @include header(16, 16);
+}
+
+.header_4 {
+  @include header(15, 20);
+}
+
+.header_5 {
+  @include header(13, 13);
+}
