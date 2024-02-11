@@ -1,0 +1,12 @@
+@import '../../styles/colors';
+
+.link {
+  color: $blue;
+  font-weight: 500;
+  font-size: 11px;
+  text-decoration: none;
+}
+
+.link_secondary {
+  color: $colorGrey99;
+}

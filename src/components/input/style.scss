@@ -1,0 +1,30 @@
+@import '../../styles/colors';
+
+@mixin input($height, $color, $backgroundColor, $borderRadius, $fontSize) {
+  width: 100%;
+  height: $height + 0px;
+  border: none;
+  border-radius: $borderRadius + 0px;
+  outline: none;
+  color: $color;
+  background-color: $backgroundColor;
+  font-weight: 500;
+  font-size: $fontSize + 0px;
+}
+
+.form_input {
+  @include input(27, $black, transparent, 0, 13);
+}
+
+.search_input {
+  @include input(32, $colorGrey99, $colorGreyEF, 5, 12);
+  padding: 6px;
+
+  &::placeholder {
+    background-image: url('../../../static/svg/search.svg');
+    background-repeat: no-repeat;
+    background-position-x: calc(50% - 30px);
+    text-align: center;
+    color: $colorGrey99;
+  }
+}
