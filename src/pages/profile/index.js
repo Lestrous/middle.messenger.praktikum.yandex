@@ -7,7 +7,7 @@ import avatar from '../../components/avatar';
 import infoBlock from '../../components/infoBlock';
 
 export default Handlebars.compile(template)({
-  avatar: avatar('profile__avatar'),
+  avatar: avatar(130, 'profile__avatar'),
   header: header('3', 'General Kenobi', 'profile__header'),
   userInfo: [
     { param: 'Почта', value: 'pochta@yandex.ru' },

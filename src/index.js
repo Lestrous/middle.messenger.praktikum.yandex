@@ -6,6 +6,7 @@ import page500 from './pages/page500';
 import loginPage from './pages/login';
 import registrationPage from './pages/registration';
 import profilePage from './pages/profile';
+import chatPage from './pages/chat';
 
 const compiledIndexPageTmpl = Handlebars.compile(indexPageTmpl);
 
@@ -36,6 +37,10 @@ function route() {
     }
     case '/profile/': {
       compiledPage = profilePage;
+      break;
+    }
+    case '/chat/': {
+      compiledPage = chatPage;
       break;
     }
     case '/500/': {

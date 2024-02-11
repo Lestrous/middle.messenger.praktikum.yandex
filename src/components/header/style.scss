@@ -16,6 +16,7 @@
 
 .header_3 {
   @include header(16, 16);
+  font-weight: 600;
 }
 
 .header_4 {
@@ -24,4 +25,5 @@
 
 .header_5 {
   @include header(13, 13);
+  font-weight: 600;
 }
