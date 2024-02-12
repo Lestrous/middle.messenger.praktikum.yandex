@@ -14,4 +14,4 @@ export default (
 ) => {
   inputClass = `${inputType} ${inputClass}`;
   return Handlebars.compile(template)({ name, type, value, inputClass, placeholder });
-}
+};

@@ -1,4 +1,4 @@
-<form class="form {{formClass}}">
+<form class="form {{formClass}}" {{#if method}}method="{{method}}"{{/if}}>
     {{{header}}}
     {{#each formInputs}}
         {{{this}}}

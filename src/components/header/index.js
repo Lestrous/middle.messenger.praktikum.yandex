@@ -4,4 +4,4 @@ import './style.scss';
 
 export default (headerLevel, text, headerClass='') => {
   return Handlebars.compile(template)({ headerLevel, text, headerClass });
-}
+};

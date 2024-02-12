@@ -10,7 +10,7 @@ import formInput from '../../modules/form/components/formInput';
 export default Handlebars.compile(template)({
   loginForm: form(
     header('2', 'Вход', 'form__header'),
-    button('Авторизоваться', 'form__button button_block button_primary'),
+    button('Авторизоваться', { buttonClass: 'form__button button_block button_primary' }),
     {
       formInputs: [
         { text: 'Логин', name: 'login' },

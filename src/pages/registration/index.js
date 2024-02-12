@@ -10,7 +10,7 @@ import formInput from '../../modules/form/components/formInput';
 export default Handlebars.compile(template)({
   registrationForm: form(
     header('2', 'Регистрация', 'form__header'),
-    button('Зарегистрироваться', 'form__button button_block  button_primary'),
+    button('Зарегистрироваться', { buttonClass: 'form__button button_block button_primary' }),
     {
       formInputs: [
         { text: 'Почта', name: 'email', type: 'email' },
