@@ -4,4 +4,4 @@ import './style.scss';
 
 export default (href, text, linkClass = '') => {
   return Handlebars.compile(template)({ href, text, linkClass });
-}
+};

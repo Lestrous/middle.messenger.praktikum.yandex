@@ -5,6 +5,9 @@ import header from '../../components/header';
 import button from '../../components/button';
 import avatar from '../../components/avatar';
 import infoBlock from '../../components/infoBlock';
+import modalDialog from '../../modules/modalDialog';
+import form from '../../modules/form';
+import formInput from '../../modules/form/components/formInput';
 
 export default Handlebars.compile(template)({
   avatar: avatar(130, 'profile__avatar'),
@@ -20,8 +23,27 @@ export default Handlebars.compile(template)({
     infoBlock({ ...userInfoItem, infoBlockClass: 'profile__data-item' })
   ),
   userActions: [
-    button('Изменить данные', 'profile__button button_primary button_link'),
-    button('Изменить пароль', 'profile__button button_primary button_link'),
-    button('Выйти', 'profile__button button_danger button_link'),
+    button('Изменить данные', { id: 'profile-change-data', buttonClass: 'profile__button button_primary button_link' }),
+    button('Изменить пароль', { buttonClass: 'profile__button button_primary button_link' }),
+    button('Выйти', { buttonClass: 'profile__button button_danger button_link' }),
   ],
+  changeProfileDataModalDialog: modalDialog(
+    form(
+      header('2', 'Редактирование данных профиля', 'form__header'),
+      button('Сохранить', { buttonClass: 'form__button button_block button_primary' }),
+      {
+        formInputs: [
+          { text: 'Почта', name: 'email', type: 'email' },
+          { text: 'Логин', name: 'login' },
+          { text: 'Имя', name: 'first_name' },
+          { text: 'Фамилия', name: 'second_name' },
+          { text: 'Имя в чате', name: 'display_name' },
+          { text: 'Телефон', name: 'phone', type: 'tel' },
+        ].map((field) => formInput(field)),
+        method: 'dialog',
+      },
+    ),
+    'Редактирование данных профиля',
+    { id: 'profile-change-data-modal-dialog' }
+  ),
 });

@@ -16,6 +16,17 @@ function getLocationPathname() {
   return `${pathname}${pathname.at(-1) === '/' ? '' : '/'}`;
 }
 
+let profileChangeDataModalDialog;
+
+function closeOnBackDropClick({ currentTarget, target }) {
+  const dialogElement = currentTarget;
+  const isClickedOnBackDrop = target === dialogElement;
+
+  if (isClickedOnBackDrop) {
+    dialogElement.close();
+  }
+}
+
 function route() {
   const pathname = getLocationPathname();
   let compiledPage;
@@ -53,15 +64,26 @@ function route() {
   }
 
   document.querySelector('#root').innerHTML = compiledPage;
+
+  if (pathname === '/profile/') {
+    profileChangeDataModalDialog = document.querySelector('#profile-change-data-modal-dialog');
+
+    profileChangeDataModalDialog.removeEventListener('click', closeOnBackDropClick);
+    profileChangeDataModalDialog.addEventListener('click', closeOnBackDropClick);
+  }
 }
 
-window.addEventListener('popstate', (event) => {
+window.addEventListener('popstate', () => {
   route();
 });
 
 window.addEventListener('click', (event) => {
-  const { target } = event;
+  const { target, target: { id } } = event;
   const closestLink = target.closest('a');
+
+  if (id === 'profile-change-data') {
+    document.querySelector('#profile-change-data-modal-dialog').showModal();
+  }
 
   if (closestLink === null) {
     return;

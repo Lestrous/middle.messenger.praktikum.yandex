@@ -16,4 +16,4 @@ export default (
     formInputContainerClass,
     input: input(name, 'form_input', { type, value }),
   });
-}
+};
