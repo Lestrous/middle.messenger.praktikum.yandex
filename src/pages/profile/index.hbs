@@ -1,0 +1,21 @@
+<main id="profile">
+    <div class="go-back"></div>
+    <div class="profile__form-container">
+        <div class="profile__form">
+            {{{avatar}}}
+            {{{header}}}
+            <section class="profile__data">
+                {{#each userInfo}}
+                    {{{this}}}
+                {{/each}}
+            </section>
+            <section class="profile__actions">
+                {{#each userActions}}
+                    <div class="profile__button-container">{{{this}}}</div>
+                {{/each}}
+            </section>
+        </div>
+    </div>
+</main>
+
+{{{changeProfileDataModalDialog}}}

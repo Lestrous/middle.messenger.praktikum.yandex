@@ -1,0 +1,29 @@
+@import 'styles/colors';
+@import 'styles/fonts';
+
+html {
+  scrollbar-gutter: stable;
+}
+
+*:not(.dialog) {
+  margin: 0;
+}
+
+* {
+  padding: 0;
+  box-sizing: border-box;
+  font-size: 12px;
+  font-weight: normal;
+}
+
+.page {
+  min-width: 320px;
+  scroll-behavior: smooth;
+  font-family: Inter, serif;
+  color: $black;
+  background-color: #fff;
+}
+
+.ul {
+  list-style: none;
+}

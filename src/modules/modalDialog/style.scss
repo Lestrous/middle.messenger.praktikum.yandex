@@ -1,0 +1,13 @@
+@import '../../styles/colors';
+
+body:has(dialog[open]) {
+  overflow: hidden;
+}
+
+.dialog {
+  border: none;
+}
+
+.dialog__wrapper {
+  //padding: 1em;
+}

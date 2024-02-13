@@ -1,0 +1,16 @@
+#page404 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+
+  .page404__header {
+    margin-bottom: 20px;
+  }
+
+  .page404__description {
+    margin-bottom: 68px;
+  }
+}

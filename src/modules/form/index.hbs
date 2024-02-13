@@ -1,0 +1,10 @@
+<form class="form {{formClass}}" {{#if method}}method="{{method}}"{{/if}}>
+    {{{header}}}
+    {{#each formInputs}}
+        {{{this}}}
+    {{/each}}
+    {{{button}}}
+    {{#if link}}
+        {{{link}}}
+    {{/if}}
+</form>

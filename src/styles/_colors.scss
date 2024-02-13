@@ -1,0 +1,14 @@
+$white: #FFF;
+$blue: #3369F3;
+$lightBlue: #E4EDFD;
+$red: #FF2F2F;
+
+$whiteLightness: 100%;
+
+$colorGreyFB: hsl(0, 0%, calc($whiteLightness - 2%));
+$colorGreyF8: hsl(0, 0%, calc($whiteLightness - 3%));
+$colorGreyF5: hsl(0, 0%, calc($whiteLightness - 4%));
+$colorGreyEF: hsl(0, 0%, calc($whiteLightness - 6%));
+$colorGreyEA: hsl(0, 0%, calc($whiteLightness - 8%));
+$colorGrey99: hsl(0, 0%, calc($whiteLightness - 40%));
+$black: hsl(0, 0%, calc($whiteLightness - 88%));
