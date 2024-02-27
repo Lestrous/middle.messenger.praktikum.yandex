@@ -2,14 +2,14 @@
 
 @mixin input($height, $color, $backgroundColor, $borderRadius, $fontSize) {
   width: 100%;
-  height: $height + 0px;
+  height: $height * 1px;
   border: none;
-  border-radius: $borderRadius + 0px;
+  border-radius: $borderRadius * 1px;
   outline: none;
   color: $color;
   background-color: $backgroundColor;
   font-weight: 500;
-  font-size: $fontSize + 0px;
+  font-size: $fontSize * 1px;
 }
 
 .form_input {
@@ -17,7 +17,8 @@
 }
 
 .search_input {
-  @include input(32, $colorGrey99, $colorGreyEF, 5, 12);
+  @include input(32, $color-grey-99, $color-grey-ef, 5, 12);
+
   padding: 6px;
 
   &::placeholder {
@@ -25,6 +26,6 @@
     background-repeat: no-repeat;
     background-position-x: calc(50% - 30px);
     text-align: center;
-    color: $colorGrey99;
+    color: $color-grey-99;
   }
 }

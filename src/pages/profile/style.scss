@@ -13,7 +13,7 @@
     justify-content: center;
     width: 64px;
     height: 100vh;
-    background-color: $colorGreyFB;
+    background-color: $color-grey-fb;
     cursor: pointer;
 
     &::after {
@@ -66,7 +66,7 @@
         .profile__button-container {
           margin-bottom: 10px;
           padding-bottom: 10px;
-          border-bottom: 1px solid $colorGreyEA;
+          border-bottom: 1px solid $color-grey-ea;
 
           &:last-of-type {
             border-bottom: none;

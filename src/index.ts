@@ -1,12 +1,14 @@
-import Handlebars from 'handlebars';
 import './main.global.scss';
+
+import Handlebars from 'handlebars';
+
 import indexPageTmpl from './index.hbs?raw';
+import chatPage from './pages/chat';
+import loginPage from './pages/login';
 import page404 from './pages/page404';
 import page500 from './pages/page500';
-import loginPage from './pages/login';
-import registrationPage from './pages/registration';
 import profilePage from './pages/profile';
-import chatPage from './pages/chat';
+import registrationPage from './pages/registration';
 
 const compiledIndexPageTmpl = Handlebars.compile(indexPageTmpl);
 
@@ -16,20 +18,20 @@ function getLocationPathname() {
   return `${pathname}${pathname.at(-1) === '/' ? '' : '/'}`;
 }
 
-let profileChangeDataModalDialog;
+let profileChangeDataModalDialog: HTMLDialogElement | null;
 
-function closeOnBackDropClick({ currentTarget, target }) {
+function closeOnBackDropClick({ currentTarget, target }: MouseEvent): void {
   const dialogElement = currentTarget;
   const isClickedOnBackDrop = target === dialogElement;
 
-  if (isClickedOnBackDrop) {
-    dialogElement.close();
+  if (isClickedOnBackDrop && dialogElement) {
+    (dialogElement as HTMLDialogElement).close();
   }
 }
 
 function route() {
   const pathname = getLocationPathname();
-  let compiledPage;
+  let compiledPage: string;
 
   switch (pathname) {
     case '/': {
@@ -63,13 +65,29 @@ function route() {
     }
   }
 
-  document.querySelector('#root').innerHTML = compiledPage;
+  const root = document.querySelector('#root');
+
+  if (root) {
+    root.innerHTML = compiledPage;
+  }
 
   if (pathname === '/profile/') {
-    profileChangeDataModalDialog = document.querySelector('#profile-change-data-modal-dialog');
+    profileChangeDataModalDialog = document.querySelector(
+      '#profile-change-data-modal-dialog',
+    );
 
-    profileChangeDataModalDialog.removeEventListener('click', closeOnBackDropClick);
-    profileChangeDataModalDialog.addEventListener('click', closeOnBackDropClick);
+    if (!profileChangeDataModalDialog) {
+      return;
+    }
+
+    profileChangeDataModalDialog.removeEventListener(
+      'click',
+      closeOnBackDropClick,
+    );
+    profileChangeDataModalDialog.addEventListener(
+      'click',
+      closeOnBackDropClick,
+    );
   }
 }
 
@@ -78,11 +96,15 @@ window.addEventListener('popstate', () => {
 });
 
 window.addEventListener('click', (event) => {
-  const { target, target: { id } } = event;
-  const closestLink = target.closest('a');
+  const { target } = event;
+  const { id: targetId } = target as HTMLElement;
+  const closestLink = (target as HTMLElement).closest('a');
 
-  if (id === 'profile-change-data') {
-    document.querySelector('#profile-change-data-modal-dialog').showModal();
+  if (targetId === 'profile-change-data') {
+    const modal = document.querySelector(
+      '#profile-change-data-modal-dialog',
+    ) as HTMLDialogElement;
+    modal.showModal();
   }
 
   if (closestLink === null) {

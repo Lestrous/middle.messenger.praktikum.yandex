@@ -30,6 +30,7 @@
   &.button_primary {
     @include button-color(transparent, $blue);
   }
+
   &.button_danger {
     @include button-color(transparent, $red);
   }

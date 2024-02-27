@@ -2,8 +2,8 @@
 
 @mixin header($fontSize, $lineHeight) {
   font-weight: 500;
-  font-size: $fontSize + 0px;
-  line-height: $lineHeight + 0px;
+  font-size: $fontSize * 1px;
+  line-height: $lineHeight * 1px;
 }
 
 .header_1 {
@@ -16,6 +16,7 @@
 
 .header_3 {
   @include header(16, 16);
+
   font-weight: 600;
 }
 
@@ -25,5 +26,6 @@
 
 .header_5 {
   @include header(13, 13);
+
   font-weight: 600;
 }

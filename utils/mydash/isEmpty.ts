@@ -1,12 +1,12 @@
-function getTag(value) {
+function getTag(value: unknown): string {
   if ([null, undefined].includes(value)) {
     return value === undefined ? "[object Undefined]" : "[object Null]";
   }
 
-  return toString.call(value);
+  return Object.prototype.toString.call(value);
 }
 
-export function isEmpty(value) {
+export function isEmpty(value: unknown): boolean {
   if (!value) {
     return true;
   }
@@ -14,7 +14,7 @@ export function isEmpty(value) {
   const tag = getTag(value);
 
   if (['[object Map]', '[object Set]'].includes(tag)) {
-    return value.size === 0;
+    return (value as Map<unknown, unknown> | Set<unknown>).size === 0;
   }
 
   switch (typeof value) {

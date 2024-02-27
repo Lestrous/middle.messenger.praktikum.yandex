@@ -1,8 +1,10 @@
-import Handlebars from 'handlebars';
-import template from './index.hbs?raw';
 import './style.scss';
-import link from '../../components/textLink';
+
+import Handlebars from 'handlebars';
+
 import header from '../../components/header';
+import link from '../../components/textLink';
+import template from './index.hbs?raw';
 
 export default Handlebars.compile(template)({
   header: header(1, '500', 'page500__header'),

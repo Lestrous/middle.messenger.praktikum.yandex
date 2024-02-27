@@ -1,7 +1,9 @@
-import Handlebars from 'handlebars';
-import template from './index.hbs?raw';
 import './style.scss';
 
-export default ({ param, value, infoBlockClass = null }) => {
+import Handlebars from 'handlebars';
+
+import template from './index.hbs?raw';
+
+export default ({ param, value, infoBlockClass = null }): string => {
   return Handlebars.compile(template)({ param, value, infoBlockClass });
 };

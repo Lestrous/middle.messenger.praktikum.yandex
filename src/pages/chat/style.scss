@@ -14,7 +14,7 @@
     width: 310px;
     height: 100vh;
     padding: 0 10px;
-    background-color: $colorGreyFB;
+    background-color: $color-grey-fb;
 
     &__header {
       display: flex;
@@ -22,7 +22,7 @@
       flex-direction: column;
       width: 100%;
       padding: 21px 0 14px;
-      border-bottom: 1px solid $colorGreyEA;
+      border-bottom: 1px solid $color-grey-ea;
     }
 
     &__profile-link {
@@ -47,6 +47,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color: $colorGrey99;
+    color: $color-grey-99;
   }
 }

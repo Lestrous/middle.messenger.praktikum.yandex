@@ -1,7 +1,12 @@
-import Handlebars from 'handlebars';
-import template from './index.hbs?raw';
 import './style.scss';
 
-export default (text, { id = null, value, buttonClass = '' } = {}) => {
+import Handlebars from 'handlebars';
+
+import template from './index.hbs?raw';
+
+export default (
+  text: string,
+  { id = null, value = '', buttonClass = '' } = {},
+): string => {
   return Handlebars.compile(template)({ text, id, value, buttonClass });
 };

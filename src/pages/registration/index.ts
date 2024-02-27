@@ -1,16 +1,20 @@
-import Handlebars from 'handlebars';
-import template from './index.hbs?raw';
 import './style.scss';
-import link from '../../components/textLink'
-import header from '../../components/header';
+
+import Handlebars from 'handlebars';
+
 import button from '../../components/button';
+import header from '../../components/header';
+import link from '../../components/textLink';
 import form from '../../modules/form';
 import formInput from '../../modules/form/components/formInput';
+import template from './index.hbs?raw';
 
 export default Handlebars.compile(template)({
   registrationForm: form(
-    header('2', 'Регистрация', 'form__header'),
-    button('Зарегистрироваться', { buttonClass: 'form__button button_block button_primary' }),
+    header(2, 'Регистрация', 'form__header'),
+    button('Зарегистрироваться', {
+      buttonClass: 'form__button button_block button_primary',
+    }),
     {
       formInputs: [
         { text: 'Почта', name: 'email', type: 'email' },
@@ -23,6 +27,6 @@ export default Handlebars.compile(template)({
       ].map((field) => formInput(field)),
       link: link('/login/', 'Войти', 'form__link'),
       formClass: 'registration__form',
-    }
+    },
   ),
 });

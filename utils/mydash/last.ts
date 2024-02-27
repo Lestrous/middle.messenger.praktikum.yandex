@@ -1,4 +1,4 @@
-export function last(list) {
+export function last(list: Array<unknown>): unknown | undefined {
   if (!Array.isArray(list)) {
     return undefined;
   }
