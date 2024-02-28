@@ -1,3 +1,5 @@
+import './style.scss';
+
 import Component, { componentPropsTypes } from '../../services/Component';
 import template from './index.hbs?raw';
 
@@ -5,7 +7,6 @@ export class Button extends Component {
   constructor(props: componentPropsTypes) {
     const { className, ...restProps } = props;
 
-    // super('button', { className: 'dqwe', ...restProps });
     super('button', { className: `button ${className}`, ...restProps });
   }
 

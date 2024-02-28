@@ -2,15 +2,14 @@ import './main.global.scss';
 
 import Handlebars from 'handlebars';
 
-import { Button } from './components/Button';
-import { Input } from './components/Input';
 import indexPageTmpl from './index.hbs?raw';
-import chatPage from './pages/chat';
-import loginPage from './pages/login';
-import page404 from './pages/page404';
-import page500 from './pages/page500';
-import profilePage from './pages/profile';
-import registrationPage from './pages/registration';
+import { ChatsPage } from './pages/ChatsPage';
+import { LoginPage } from './pages/LoginPage';
+import { Page404 } from './pages/Page404';
+import { Page500 } from './pages/Page500';
+import { ProfilePage } from './pages/ProfilePage';
+import { RegistrationPage } from './pages/RegistrationPage';
+import Component from './services/Component';
 import { render } from './utils/renderDOM';
 
 const compiledIndexPageTmpl = Handlebars.compile(indexPageTmpl);
@@ -21,20 +20,10 @@ function getLocationPathname() {
   return `${pathname}${pathname.at(-1) === '/' ? '' : '/'}`;
 }
 
-let profileChangeDataModalDialog: HTMLDialogElement | null;
-
-function closeOnBackDropClick({ currentTarget, target }: MouseEvent): void {
-  const dialogElement = currentTarget;
-  const isClickedOnBackDrop = target === dialogElement;
-
-  if (isClickedOnBackDrop && dialogElement) {
-    (dialogElement as HTMLDialogElement).close();
-  }
-}
-
 function route() {
   const pathname = getLocationPathname();
-  let compiledPage: string;
+  let compiledPage: string | null;
+  let pageComponent: Component;
 
   switch (pathname) {
     case '/': {
@@ -44,80 +33,45 @@ function route() {
       break;
     }
     case '/login/': {
-      compiledPage = loginPage;
+      compiledPage = null;
+      pageComponent = new LoginPage();
       break;
     }
     case '/registration/': {
-      compiledPage = registrationPage;
+      compiledPage = null;
+      pageComponent = new RegistrationPage();
       break;
     }
     case '/profile/': {
-      compiledPage = profilePage;
+      compiledPage = null;
+      pageComponent = new ProfilePage();
       break;
     }
-    case '/chat/': {
-      compiledPage = chatPage;
+    case '/chats/': {
+      compiledPage = null;
+      pageComponent = new ChatsPage();
       break;
     }
     case '/500/': {
-      compiledPage = page500;
+      compiledPage = null;
+      pageComponent = new Page500();
       break;
     }
     default: {
-      compiledPage = page404;
+      compiledPage = null;
+      pageComponent = new Page404();
     }
   }
 
   const root = document.querySelector('#root');
 
-  if (root) {
-    root.innerHTML = compiledPage;
-
-    const button = new Button({
-      text: 'Авторизоваться',
-      className: 'form__button button_block button_primary',
-      id: 'id_test',
-      value: 'value_test',
-      onClick: () => {
-        console.log('click');
-      },
-    });
-
-    render('#root', button);
-
-    const input = new Input({
-      inputType: 'form_input',
-      name: 'login',
-      id: 'id_test',
-      value: 'value_test',
-      onClick: () => {
-        console.log('click');
-      },
-      onBlur: () => {
-        console.log('blur');
-      },
-    });
-
-    render('#root', input);
+  if (root && pageComponent) {
+    root.innerHTML = '';
+    render('#root', pageComponent);
   }
 
-  if (pathname === '/profile/') {
-    profileChangeDataModalDialog = document.querySelector(
-      '#profile-change-data-modal-dialog',
-    );
-
-    if (!profileChangeDataModalDialog) {
-      return;
-    }
-
-    profileChangeDataModalDialog.removeEventListener(
-      'click',
-      closeOnBackDropClick,
-    );
-    profileChangeDataModalDialog.addEventListener(
-      'click',
-      closeOnBackDropClick,
-    );
+  if (root && compiledPage) {
+    root.innerHTML = compiledPage;
   }
 }
 

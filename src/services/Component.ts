@@ -13,15 +13,14 @@ type propsType = {
   [key: string]: Component | unknown;
 };
 
-type eventFunction = (...args: unknown[]) => void;
-
 type eventPropType = {
-  onClick?: eventFunction;
-  onBlur?: eventFunction;
+  onClick?: CallableFunction;
+  onBlur?: CallableFunction;
+  onSubmit?: CallableFunction;
 };
 
 type eventType = {
-  [key: string]: eventFunction;
+  [key: string]: CallableFunction;
 };
 
 type childrenType = {
@@ -35,6 +34,9 @@ type attributesType = {
   type?: string;
   name?: string;
   placeholder?: string;
+  href?: string;
+  method?: string;
+  'aria-label'?: string;
   [key: string]: string | undefined | unknown;
 };
 
@@ -54,8 +56,18 @@ export default class Component {
   };
 
   static KEYWORDS: keywordsInterface = {
-    ATTRIBUTES: ['className', 'id', 'value', 'type', 'name', 'placeholder'],
-    EVENTS: ['onClick', 'onBlur'],
+    ATTRIBUTES: [
+      'className',
+      'id',
+      'value',
+      'type',
+      'name',
+      'placeholder',
+      'href',
+      'method',
+      'aria-label',
+    ],
+    EVENTS: ['onClick', 'onBlur', 'onSubmit'],
   };
 
   _props: propsType;
@@ -97,7 +109,7 @@ export default class Component {
     eventBus.emit(Component.EVENTS.INIT);
   }
 
-  _registerPropEvents({ onClick, onBlur }: eventPropType = {}) {
+  _registerPropEvents({ onClick, onBlur, onSubmit }: eventPropType = {}) {
     const events: eventType = {};
 
     if (onClick) {
@@ -106,6 +118,10 @@ export default class Component {
 
     if (onBlur) {
       events['blur'] = onBlur;
+    }
+
+    if (onSubmit) {
+      events['submit'] = onSubmit;
     }
 
     return events;
@@ -128,7 +144,7 @@ export default class Component {
         if (value instanceof Component) {
           children[key] = value;
         } else if (Component.KEYWORDS.EVENTS.includes(key)) {
-          events[key] = value as eventFunction;
+          events[key] = value as CallableFunction;
         } else if (Component.KEYWORDS.ATTRIBUTES.includes(key)) {
           attributes[key] = value as string;
         } else {
@@ -305,13 +321,19 @@ export default class Component {
 
   _addEvents() {
     Object.keys(this._events).forEach((eventName) => {
-      this._element.addEventListener(eventName, this._events[eventName]);
+      this._element.addEventListener(
+        eventName,
+        this._events[eventName] as EventListenerOrEventListenerObject,
+      );
     });
   }
 
   _removeEvents() {
     Object.keys(this._events).forEach((eventName) => {
-      this._element.removeEventListener(eventName, this._events[eventName]);
+      this._element.removeEventListener(
+        eventName,
+        this._events[eventName] as EventListenerOrEventListenerObject,
+      );
     });
   }
 
