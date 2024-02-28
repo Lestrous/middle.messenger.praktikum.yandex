@@ -3,9 +3,9 @@ import './style.scss';
 import Handlebars from 'handlebars';
 
 import avatar from '../../components/avatar';
-import button from '../../components/button';
 import header from '../../components/header';
 import infoBlock from '../../components/infoBlock';
+import button from '../../components/old_button';
 import form from '../../modules/form';
 import formInput from '../../modules/form/components/formInput';
 import modalDialog from '../../modules/modalDialog';

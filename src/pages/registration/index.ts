@@ -2,8 +2,8 @@ import './style.scss';
 
 import Handlebars from 'handlebars';
 
-import button from '../../components/button';
 import header from '../../components/header';
+import button from '../../components/old_button';
 import link from '../../components/textLink';
 import form from '../../modules/form';
 import formInput from '../../modules/form/components/formInput';

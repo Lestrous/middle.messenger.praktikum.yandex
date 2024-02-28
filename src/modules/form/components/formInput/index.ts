@@ -2,7 +2,7 @@ import './style.scss';
 
 import Handlebars from 'handlebars';
 
-import input from '../../../../components/input';
+import input from '../../../../components/old_input';
 import template from './index.hbs?raw';
 
 export default ({

@@ -3,7 +3,7 @@ import './style.scss';
 import Handlebars from 'handlebars';
 
 import chatCard from '../../components/chatCard';
-import input from '../../components/input';
+import input from '../../components/old_input';
 import textLink from '../../components/textLink';
 import template from './index.hbs?raw';
 
