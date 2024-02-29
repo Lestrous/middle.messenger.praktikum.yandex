@@ -7,7 +7,7 @@ export class Button extends Component {
   constructor(props: componentPropsTypes) {
     const { className, ...restProps } = props;
 
-    super('button', { className: `button ${className}`, ...restProps });
+    super('button', { className: `button ${className ?? ''}`, ...restProps });
   }
 
   render() {

@@ -1,6 +1,9 @@
+@use 'sass:color';
+
 $white: #FFF;
 $blue: #3369F3;
 $light-blue: #E4EDFD;
+$light-blue-hover: color.adjust($light-blue, $lightness: 3%);
 $red: #FF2F2F;
 
 $white-lightness: 100%;

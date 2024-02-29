@@ -1,8 +1,8 @@
 import './style.scss';
 
-import Component, { componentPropsTypes } from '../../services/Component';
-import { Avatar } from '../Avatar';
-import { Header } from '../Header';
+import { Avatar } from '../../../../components/Avatar';
+import { Header } from '../../../../components/Header';
+import Component, { componentPropsTypes } from '../../../../services/Component';
 import template from './index.hbs?raw';
 
 type ChatCardPropsType = componentPropsTypes & {
@@ -17,7 +17,7 @@ export class ChatCard extends Component {
   constructor(props: ChatCardPropsType) {
     const { className, ...restProps } = props;
 
-    super('div', { className: `chat-card ${className}`, ...restProps });
+    super('div', { className: `chat-card ${className ?? ''}`, ...restProps });
   }
 
   render() {

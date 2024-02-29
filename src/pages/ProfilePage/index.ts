@@ -2,6 +2,7 @@ import './style.scss';
 
 import { Avatar } from '../../components/Avatar';
 import { Button } from '../../components/Button';
+import { GoBackBlock } from '../../components/GoBackBlock';
 import { Header } from '../../components/Header';
 import { InfoBlock } from '../../components/InfoBlock';
 import { Input, InputPropTypeTypes } from '../../components/Input';
@@ -57,6 +58,7 @@ export class ProfilePage extends Component {
     });
 
     super('main', {
+      goBackBlock: new GoBackBlock({}),
       avatar: new Avatar({
         size: 130,
         className: 'profile__avatar',

@@ -1,4 +1,4 @@
-@import '../../styles/colors';
+@import '../../../../styles/colors';
 
 .chat-card {
   display: flex;
@@ -6,10 +6,20 @@
   justify-content: space-between;
   gap: 10px;
   width: 100%;
-  padding: 12px 0;
+  padding: 12px 10px;
   border-bottom: 1px solid $color-grey-ea;
   color: $color-grey-99;
   font-size: 12px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $light-blue-hover;
+  }
+
+  &:active,
+  &:focus {
+    background-color: $light-blue;
+  }
 
   &:last-of-type {
     border-bottom: none;

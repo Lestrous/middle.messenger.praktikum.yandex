@@ -13,7 +13,6 @@
     flex-direction: column;
     width: 310px;
     height: 100vh;
-    padding: 0 10px;
     background-color: $color-grey-fb;
 
     &__header {
@@ -21,7 +20,7 @@
       justify-content: center;
       flex-direction: column;
       width: 100%;
-      padding: 21px 0 14px;
+      padding: 21px 10px 14px;
       border-bottom: 1px solid $color-grey-ea;
     }
 
@@ -42,11 +41,7 @@
     }
   }
 
-  .chat__messages {
+  .chat__block {
     flex-basis: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: $color-grey-99;
   }
 }

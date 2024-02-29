@@ -1,11 +1,12 @@
 import './style.scss';
 
 import { Avatar } from '../../components/Avatar';
-import { ChatCard } from '../../components/ChatCard';
 import { Header } from '../../components/Header';
 import { Input } from '../../components/Input';
 import { TextLink } from '../../components/TextLink';
 import Component from '../../services/Component';
+import { ChatCard } from './components/ChatCard';
+import { EmptyChatBlock } from './components/EmptyChatBlock';
 import template from './index.hbs?raw';
 
 export class ChatsPage extends Component {
@@ -49,6 +50,7 @@ export class ChatsPage extends Component {
             ...chatCardItem,
           }),
       ),
+      chatBlock: new EmptyChatBlock({}),
       id: 'chat',
     });
   }

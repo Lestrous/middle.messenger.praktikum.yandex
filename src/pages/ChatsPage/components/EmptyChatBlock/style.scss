@@ -1,0 +1,8 @@
+@import '../../../../styles/colors';
+
+.empty-chat-block {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $color-grey-99;
+}

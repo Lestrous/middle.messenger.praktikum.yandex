@@ -23,13 +23,14 @@ function getLocationPathname() {
 function route() {
   const pathname = getLocationPathname();
   let compiledPage: string | null;
-  let pageComponent: Component;
+  let pageComponent: Component | null;
 
   switch (pathname) {
     case '/': {
       compiledPage = compiledIndexPageTmpl({
         username: 'General Kenobi',
       });
+      pageComponent = null;
       break;
     }
     case '/login/': {

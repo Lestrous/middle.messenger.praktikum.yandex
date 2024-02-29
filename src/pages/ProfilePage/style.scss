@@ -7,29 +7,6 @@
   width: 100vw;
   height: 100vh;
 
-  .go-back {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 64px;
-    height: 100vh;
-    background-color: $color-grey-fb;
-    cursor: pointer;
-
-    &::after {
-      content: '';
-      display: block;
-      width: 28px;
-      height: 28px;
-      border-radius: 14px;
-      background-color: $blue;
-      background-image: url('../../../static/svg/arrow.svg');
-      background-repeat: no-repeat;
-      background-position: center;
-      transform: scaleX(-1);
-    }
-  }
-
   .profile__form-container {
     flex-basis: 100%;
     display: flex;

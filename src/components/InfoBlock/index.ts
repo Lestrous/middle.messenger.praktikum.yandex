@@ -12,7 +12,7 @@ export class InfoBlock extends Component {
   constructor(props: InfoBlockPropsType) {
     const { className, ...restProps } = props;
 
-    super('div', { className: `info-block ${className}`, ...restProps });
+    super('div', { className: `info-block ${className ?? ''}`, ...restProps });
   }
 
   render() {
