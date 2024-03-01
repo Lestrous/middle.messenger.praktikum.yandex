@@ -1,0 +1,24 @@
+@import '../../styles/colors';
+
+.go-back {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 100vh;
+  background-color: $color-grey-fb;
+  cursor: pointer;
+
+  &::after {
+    content: '';
+    display: block;
+    width: 28px;
+    height: 28px;
+    border-radius: 14px;
+    background-color: $blue;
+    background-image: url('../../../static/svg/arrow.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    transform: scaleX(-1);
+  }
+}

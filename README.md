@@ -9,7 +9,7 @@
 - [Авторизация](https://zippy-naiad-0e9543.netlify.app/login/)
 - [Регистрация](https://zippy-naiad-0e9543.netlify.app/registration/)
 - [Профиль](https://zippy-naiad-0e9543.netlify.app/profile/)
-- [Чаты](https://zippy-naiad-0e9543.netlify.app/chat/)
+- [Чаты](https://zippy-naiad-0e9543.netlify.app/chats/)
 - [500](https://zippy-naiad-0e9543.netlify.app/500/)
 - [404](https://zippy-naiad-0e9543.netlify.app/404/)
 

@@ -5,15 +5,15 @@ html {
   scrollbar-gutter: stable;
 }
 
-*:not(.dialog) {
-  margin: 0;
-}
-
 * {
   padding: 0;
   box-sizing: border-box;
   font-size: 12px;
   font-weight: normal;
+}
+
+*:not(.dialog) {
+  margin: 0;
 }
 
 .page {
