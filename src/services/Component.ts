@@ -222,7 +222,7 @@ export default class Component {
 
     this._setUpdate = false;
 
-    const oldProps = { ...this._props };
+    const oldProps = { ...this._props, ...this._children };
 
     const { children, props, events, attributes } =
       this._destructProperties(nextProps);
@@ -247,7 +247,10 @@ export default class Component {
     }
 
     if (this._setUpdate) {
-      this._eventBus().emit(Component.EVENTS.FLOW_CDU, oldProps, this._props);
+      this._eventBus().emit(Component.EVENTS.FLOW_CDU, oldProps, {
+        ...this._props,
+        ...this._children,
+      });
       this._setUpdate = false;
     }
   };

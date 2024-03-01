@@ -2,7 +2,7 @@ import './style.scss';
 
 import Component, { componentPropsTypes } from '../../services/Component';
 
-export type AvatarPropSizeTypes = 47 | 130;
+export type AvatarPropSizeTypes = 34 | 47 | 130;
 
 type AvatarPropsType = componentPropsTypes & {
   size: AvatarPropSizeTypes;

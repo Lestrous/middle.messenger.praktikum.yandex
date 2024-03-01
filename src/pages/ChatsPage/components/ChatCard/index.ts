@@ -6,18 +6,23 @@ import Component, { componentPropsTypes } from '../../../../services/Component';
 import template from './index.hbs?raw';
 
 type ChatCardPropsType = componentPropsTypes & {
+  chatId: string;
   avatar: Avatar;
   header: Header;
   text?: string;
   time?: string;
   lastMessageYours?: boolean;
+  isActiveChat?: boolean;
 };
 
 export class ChatCard extends Component {
   constructor(props: ChatCardPropsType) {
-    const { className, ...restProps } = props;
+    const { className, isActiveChat, ...restProps } = props;
 
-    super('div', { className: `chat-card ${className ?? ''}`, ...restProps });
+    super('div', {
+      className: `chat-card ${isActiveChat ? 'chat-card_active' : ''} ${className ?? ''}`,
+      ...restProps,
+    });
   }
 
   render() {

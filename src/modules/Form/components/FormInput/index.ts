@@ -8,6 +8,8 @@ type FormInputPropsType = componentPropsTypes & {
   formInputContainerClass?: string;
   text: string;
   input: Input;
+  errorMessage: string;
+  showErrorMessage?: boolean;
 };
 
 export class FormInput extends Component {
@@ -19,14 +21,24 @@ export class FormInput extends Component {
     } = props;
 
     super('label', {
-      className: `form_input-container ${formInputContainerClass ?? ''} ${className ?? ''}`,
+      className: `form-input-container ${formInputContainerClass ?? ''} ${className ?? ''}`,
       ...restProps,
     });
   }
 
-  render() {
-    const { formInputContainerClass, text } = this._props;
+  getInputValue() {
+    return (this._children.input as Input).getValue();
+  }
 
-    return this.compile(template, { formInputContainerClass, text });
+  render() {
+    const { formInputContainerClass, text, errorMessage, showErrorMessage } =
+      this._props;
+
+    return this.compile(template, {
+      formInputContainerClass,
+      text,
+      errorMessage,
+      showErrorMessage,
+    });
   }
 }

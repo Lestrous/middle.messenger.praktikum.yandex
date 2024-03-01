@@ -29,3 +29,13 @@
     color: $color-grey-99;
   }
 }
+
+.message_input {
+  @include input(32, $black, $color-grey-ef, 30, 12);
+
+  padding: 0 20px;
+
+  &::placeholder {
+    color: $color-grey-99;
+  }
+}

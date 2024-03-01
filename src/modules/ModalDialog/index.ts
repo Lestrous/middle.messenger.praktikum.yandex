@@ -31,6 +31,10 @@ export class ModalDialog extends Component {
     (this.element as HTMLDialogElement).showModal();
   }
 
+  closeModal() {
+    (this.element as HTMLDialogElement).close();
+  }
+
   render() {
     const { dialogClass } = this._props;
 

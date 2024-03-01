@@ -10,7 +10,7 @@ export type InputPropTypeTypes =
   | 'search';
 
 type InputPropsType = componentPropsTypes & {
-  inputType: 'form_input' | 'search_input';
+  inputType: 'form_input' | 'search_input' | 'message_input';
   type: InputPropTypeTypes;
 };
 
@@ -22,6 +22,10 @@ export class Input extends Component {
       className: `${inputType} ${className ?? ''}`,
       ...restProps,
     });
+  }
+
+  getValue() {
+    return (this.element as HTMLInputElement).value;
   }
 
   render() {

@@ -5,16 +5,165 @@ import { Button } from '../../components/Button';
 import { GoBackBlock } from '../../components/GoBackBlock';
 import { Header } from '../../components/Header';
 import { InfoBlock } from '../../components/InfoBlock';
-import { Input, InputPropTypeTypes } from '../../components/Input';
+import { Input } from '../../components/Input';
 import { Form } from '../../modules/Form';
 import { FormInput } from '../../modules/Form/components/FormInput';
 import { ModalDialog } from '../../modules/ModalDialog';
 import Component from '../../services/Component';
+import { Validator } from '../../services/Validator';
 import template from './index.hbs?raw';
 
 export class ProfilePage extends Component {
   constructor() {
     let changeProfileDataModalDialog: ModalDialog | null = null;
+
+    const validator = new Validator();
+
+    let emailFormInput: FormInput | undefined = undefined;
+    let loginFormInput: FormInput | undefined = undefined;
+    let firstNameFormInput: FormInput | undefined = undefined;
+    let secondNameFormInput: FormInput | undefined = undefined;
+    let phoneFormInput: FormInput | undefined = undefined;
+
+    const validateEmail = () => {
+      if (!emailFormInput) {
+        return false;
+      }
+
+      const email = emailFormInput.getInputValue();
+      const isEmailValid = validator.validateEmail(email);
+
+      emailFormInput.setProps({
+        showErrorMessage: !isEmailValid,
+      });
+
+      return isEmailValid;
+    };
+
+    emailFormInput = new FormInput({
+      text: 'Почта',
+      input: new Input({
+        name: 'email',
+        type: 'email',
+        inputType: 'form_input',
+        onBlur: validateEmail,
+      }),
+      errorMessage: 'Неверная почта',
+    });
+
+    const validateLogin = () => {
+      if (!loginFormInput) {
+        return false;
+      }
+
+      const login = loginFormInput.getInputValue();
+      const isLoginValid = validator.validateLogin(login);
+
+      loginFormInput.setProps({
+        showErrorMessage: !isLoginValid,
+      });
+
+      return isLoginValid;
+    };
+
+    loginFormInput = new FormInput({
+      text: 'Логин',
+      input: new Input({
+        name: 'login',
+        type: 'text',
+        inputType: 'form_input',
+        onBlur: validateLogin,
+      }),
+      errorMessage: 'Неверный логин',
+    });
+
+    const validateFirstName = () => {
+      if (!firstNameFormInput) {
+        return false;
+      }
+
+      const firstName = firstNameFormInput.getInputValue();
+      const isFirstNameValid = validator.validateName(firstName);
+
+      firstNameFormInput.setProps({
+        showErrorMessage: !isFirstNameValid,
+      });
+
+      return isFirstNameValid;
+    };
+
+    firstNameFormInput = new FormInput({
+      text: 'Имя',
+      input: new Input({
+        name: 'first_name',
+        type: 'text',
+        inputType: 'form_input',
+        onBlur: validateFirstName,
+      }),
+      errorMessage: 'Неправльное имя',
+    });
+
+    const validateSecondName = () => {
+      if (!secondNameFormInput) {
+        return false;
+      }
+
+      const secondName = secondNameFormInput.getInputValue();
+      const isSecondNameValid = validator.validateName(secondName);
+
+      secondNameFormInput.setProps({
+        showErrorMessage: !isSecondNameValid,
+      });
+
+      return isSecondNameValid;
+    };
+
+    secondNameFormInput = new FormInput({
+      text: 'Фамилия',
+      input: new Input({
+        name: 'second_name',
+        type: 'text',
+        inputType: 'form_input',
+        onBlur: validateSecondName,
+      }),
+      errorMessage: 'Неправльная фамилия',
+    });
+
+    const displayNameFormInput = new FormInput({
+      text: 'Имя в чате',
+      input: new Input({
+        name: 'display_name',
+        type: 'text',
+        inputType: 'form_input',
+      }),
+      errorMessage: 'Неправльное имя в чате',
+    });
+
+    const validatePhone = () => {
+      if (!phoneFormInput) {
+        return false;
+      }
+
+      const phone = phoneFormInput.getInputValue();
+      const isPhoneValid = validator.validatesPhone(phone);
+
+      phoneFormInput.setProps({
+        showErrorMessage: !isPhoneValid,
+      });
+
+      return isPhoneValid;
+    };
+
+    phoneFormInput = new FormInput({
+      text: 'Телефон',
+      input: new Input({
+        name: 'phone',
+        type: 'tel',
+        inputType: 'form_input',
+        onBlur: validatePhone,
+      }),
+      errorMessage: 'Неправильный телефон',
+    });
 
     const profileFrom = new Form({
       header: new Header({
@@ -28,26 +177,45 @@ export class ProfilePage extends Component {
         type: 'submit',
       }),
       formInputs: [
-        { text: 'Почта', name: 'email', type: 'email' },
-        { text: 'Логин', name: 'login', type: 'text' },
-        { text: 'Имя', name: 'first_name', type: 'text' },
-        { text: 'Фамилия', name: 'second_name', type: 'text' },
-        { text: 'Имя в чате', name: 'display_name', type: 'text' },
-        { text: 'Телефон', name: 'phone', type: 'tel' },
-      ].map(
-        (field) =>
-          new FormInput({
-            text: field.text,
-            input: new Input({
-              ...field,
-              type: field.type as InputPropTypeTypes,
-              inputType: 'form_input',
-            }),
-          }),
-      ),
+        emailFormInput,
+        loginFormInput,
+        firstNameFormInput,
+        secondNameFormInput,
+        displayNameFormInput,
+        phoneFormInput,
+      ],
+      // { text: 'Имя в чате', name: 'display_name', type: 'text' },
       onSubmit: (event: SubmitEvent) => {
         event.preventDefault();
-        console.log('onSubmit');
+
+        const isValidEmail = validateEmail();
+        const isValidLogin = validateLogin();
+        const isValidFirstName = validateFirstName();
+        const isValidSecondName = validateSecondName();
+        const isValidPhone = validatePhone();
+
+        const isValidFormData =
+          isValidEmail &&
+          isValidLogin &&
+          isValidFirstName &&
+          isValidSecondName &&
+          isValidPhone;
+
+        if (isValidFormData) {
+          const formData = profileFrom.getFormData();
+
+          const data = {
+            email: formData.get('email'),
+            login: formData.get('login'),
+            first_name: formData.get('first_name'),
+            second_name: formData.get('second_name'),
+            phone: formData.get('phone'),
+          };
+
+          console.log(data);
+
+          changeProfileDataModalDialog?.closeModal();
+        }
       },
     });
 

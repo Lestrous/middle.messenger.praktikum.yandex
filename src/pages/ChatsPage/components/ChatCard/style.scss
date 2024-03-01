@@ -16,6 +16,7 @@
     background-color: $light-blue-hover;
   }
 
+  &_card_active,
   &:active,
   &:focus {
     background-color: $light-blue;

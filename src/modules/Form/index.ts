@@ -25,6 +25,10 @@ export class Form extends Component {
     });
   }
 
+  getFormData() {
+    return new FormData(this.element as HTMLFormElement);
+  }
+
   render() {
     const { formInputContainerClass, text } = this._props;
 
