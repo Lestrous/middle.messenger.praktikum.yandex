@@ -1,0 +1,47 @@
+@import '../../styles/colors';
+
+#chat {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100vw;
+  height: 100vh;
+
+  .chats-container {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    width: 310px;
+    height: 100vh;
+    background-color: $color-grey-fb;
+
+    &__header {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      width: 100%;
+      padding: 21px 10px 14px;
+      border-bottom: 1px solid $color-grey-ea;
+    }
+
+    &__profile-link {
+      align-self: end;
+      margin-bottom: 23px;
+      padding-right: 12px;
+      background-image: url('../../../static/svg/smallArrow.svg');
+      background-repeat: no-repeat;
+      background-position: right;
+    }
+
+    &__body {
+      display: flex;
+      justify-content: flex-start;
+      flex-direction: column;
+      width: 100%;
+    }
+  }
+
+  .chat__block {
+    flex-basis: 100%;
+  }
+}

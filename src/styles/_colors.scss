@@ -1,14 +1,17 @@
+@use 'sass:color';
+
 $white: #FFF;
 $blue: #3369F3;
-$lightBlue: #E4EDFD;
+$light-blue: #E4EDFD;
+$light-blue-hover: color.adjust($light-blue, $lightness: 3%);
 $red: #FF2F2F;
 
-$whiteLightness: 100%;
+$white-lightness: 100%;
 
-$colorGreyFB: hsl(0, 0%, calc($whiteLightness - 2%));
-$colorGreyF8: hsl(0, 0%, calc($whiteLightness - 3%));
-$colorGreyF5: hsl(0, 0%, calc($whiteLightness - 4%));
-$colorGreyEF: hsl(0, 0%, calc($whiteLightness - 6%));
-$colorGreyEA: hsl(0, 0%, calc($whiteLightness - 8%));
-$colorGrey99: hsl(0, 0%, calc($whiteLightness - 40%));
-$black: hsl(0, 0%, calc($whiteLightness - 88%));
+$color-grey-fb: hsl(0deg, 0%, calc($white-lightness - 2%));
+$color-grey-f8: hsl(0deg, 0%, calc($white-lightness - 3%));
+$color-grey-f5: hsl(0deg, 0%, calc($white-lightness - 4%));
+$color-grey-ef: hsl(0deg, 0%, calc($white-lightness - 6%));
+$color-grey-ea: hsl(0deg, 0%, calc($white-lightness - 8%));
+$color-grey-99: hsl(0deg, 0%, calc($white-lightness - 40%));
+$black: hsl(0deg, 0%, calc($white-lightness - 88%));
