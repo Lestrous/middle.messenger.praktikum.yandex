@@ -1,4 +1,4 @@
-@import '../../../../../styles/colors';
+@import '../../../../../../styles/colors';
 
 .chat-header {
   display: flex;
@@ -24,7 +24,7 @@
     border-radius: 50%;
     background-color: #fff;
     vertical-align: middle;
-    background-image: url('../../../../../../static/svg/options.svg');
+    background-image: url('../../../../../../../static/svg/options.svg');
     background-repeat: no-repeat;
     background-position: center;
     flex-shrink: 0;

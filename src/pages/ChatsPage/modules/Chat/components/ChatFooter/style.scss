@@ -1,4 +1,4 @@
-@import '../../../../../styles/colors';
+@import '../../../../../../styles/colors';
 
 .chat-footer {
   display: flex;
@@ -16,7 +16,7 @@
     border-radius: 50%;
     background-color: #fff;
     vertical-align: middle;
-    background-image: url('../../../../../../static/svg/clip.svg');
+    background-image: url('../../../../../../../static/svg/clip.svg');
     background-repeat: no-repeat;
     background-position: center;
     flex-shrink: 0;
@@ -37,7 +37,7 @@
     border-radius: 50%;
     background-color: $blue;
     vertical-align: middle;
-    background-image: url('../../../../../../static/svg/arrow.svg');
+    background-image: url('../../../../../../../static/svg/arrow.svg');
     background-repeat: no-repeat;
     background-position: center;
     flex-shrink: 0;

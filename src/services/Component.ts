@@ -281,14 +281,13 @@ export default class Component {
     // eslint-disable-next-line @typescript-eslint/no-this-alias
     const self = this;
 
-    // Здесь вам предстоит реализовать метод
     return new Proxy(props, {
       get(target, prop: string) {
         const value = target[prop];
         return typeof value === 'function' ? value.bind(target) : value;
       },
       set(target, prop: string, value) {
-        if (!isEqual(target[prop], value)) {
+        if (JSON.stringify(target[prop]) !== JSON.stringify(value)) {
           target[prop] = value;
           self._setUpdate = true;
         }

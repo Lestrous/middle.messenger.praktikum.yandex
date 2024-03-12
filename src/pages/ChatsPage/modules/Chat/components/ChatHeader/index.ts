@@ -1,11 +1,11 @@
 import './style.scss';
 
-import { Avatar } from '../../../../../components/Avatar';
-import { Button } from '../../../../../components/Button';
-import { Header } from '../../../../../components/Header';
+import { Avatar } from '../../../../../../components/Avatar';
+import { Button } from '../../../../../../components/Button';
+import { Header } from '../../../../../../components/Header';
 import Component, {
   componentPropsTypes,
-} from '../../../../../services/Component';
+} from '../../../../../../services/Component';
 import template from './index.hbs?raw';
 
 type ChatHeaderPropsType = componentPropsTypes & {

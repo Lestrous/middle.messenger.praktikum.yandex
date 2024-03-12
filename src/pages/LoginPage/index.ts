@@ -2,7 +2,6 @@ import './style.scss';
 
 import { Button } from '../../components/Button';
 import { Header } from '../../components/Header';
-import { Input } from '../../components/Input';
 import { TextLink } from '../../components/TextLink';
 import { Form } from '../../modules/Form';
 import { FormInput } from '../../modules/Form/components/FormInput';
@@ -14,59 +13,18 @@ export class LoginPage extends Component {
   constructor() {
     const validator = new Validator();
 
-    let loginFormInput: FormInput | undefined = undefined;
-    let passwordFormInput: FormInput | undefined = undefined;
-
-    const validateLogin = () => {
-      if (!loginFormInput) {
-        return false;
-      }
-
-      const login = loginFormInput.getInputValue();
-      const isLoginValid = validator.validateLogin(login);
-
-      loginFormInput.setProps({
-        showErrorMessage: !isLoginValid,
-      });
-
-      return isLoginValid;
-    };
-
-    loginFormInput = new FormInput({
+    const loginFormInput = new FormInput({
       text: 'Логин',
-      input: new Input({
-        name: 'login',
-        type: 'text',
-        inputType: 'form_input',
-        onBlur: validateLogin,
-      }),
-      errorMessage: 'Неверный логин',
+      name: 'login',
+      type: 'text',
+      validation: validator.validateLogin,
     });
 
-    const validatePassword = () => {
-      if (!passwordFormInput) {
-        return false;
-      }
-
-      const password = passwordFormInput.getInputValue();
-      const isPasswordValid = validator.validatePassword(password);
-
-      passwordFormInput.setProps({
-        showErrorMessage: !isPasswordValid,
-      });
-
-      return isPasswordValid;
-    };
-
-    passwordFormInput = new FormInput({
+    const passwordFormInput = new FormInput({
       text: 'Пароль',
-      input: new Input({
-        name: 'password',
-        type: 'text',
-        inputType: 'form_input',
-        onBlur: validatePassword,
-      }),
-      errorMessage: 'Неверный пароль',
+      name: 'password',
+      type: 'text',
+      validation: validator.validatePassword,
     });
 
     const loginForm = new Form({
@@ -90,21 +48,23 @@ export class LoginPage extends Component {
       onSubmit: (event: SubmitEvent) => {
         event.preventDefault();
 
-        const isValidLogin = validateLogin();
-        const isValidPassword = validatePassword();
+        const isValidLogin = loginFormInput.validate();
+        const isValidPassword = passwordFormInput.validate();
 
         const isValidFormData = isValidLogin && isValidPassword;
 
-        if (isValidFormData) {
-          const formData = loginForm.getFormData();
-
-          const data = {
-            login: formData.get('login'),
-            password: formData.get('password'),
-          };
-
-          console.log(data);
+        if (!isValidFormData) {
+          return;
         }
+
+        const formData = loginForm.getFormData();
+
+        const data = {
+          login: formData.get('login'),
+          password: formData.get('password'),
+        };
+
+        console.log(data);
       },
     });
 

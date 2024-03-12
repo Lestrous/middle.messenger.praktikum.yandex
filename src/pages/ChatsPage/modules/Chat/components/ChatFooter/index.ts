@@ -1,10 +1,10 @@
 import './style.scss';
 
-import { Button } from '../../../../../components/Button';
-import { Input } from '../../../../../components/Input';
+import { Button } from '../../../../../../components/Button';
+import { Input } from '../../../../../../components/Input';
 import Component, {
   componentPropsTypes,
-} from '../../../../../services/Component';
+} from '../../../../../../services/Component';
 import template from './index.hbs?raw';
 
 type ChatFooterPropsType = componentPropsTypes & {

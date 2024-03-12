@@ -2,9 +2,9 @@ import './style.scss';
 
 import Component, { componentPropsTypes } from '../../../../services/Component';
 import { Validator } from '../../../../services/Validator';
-import { ChatBody } from '../components/ChatBody';
-import { ChatFooter } from '../components/ChatFooter';
-import { ChatHeader } from '../components/ChatHeader';
+import { ChatBody } from './components/ChatBody';
+import { ChatFooter } from './components/ChatFooter';
+import { ChatHeader } from './components/ChatHeader';
 import template from './index.hbs?raw';
 
 export class Chat extends Component {

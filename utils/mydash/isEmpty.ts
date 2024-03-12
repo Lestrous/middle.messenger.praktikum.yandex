@@ -1,5 +1,5 @@
 function getTag(value: unknown): string {
-  if ([null, undefined].includes(value)) {
+  if (value === null || value === undefined) {
     return value === undefined ? "[object Undefined]" : "[object Null]";
   }
 

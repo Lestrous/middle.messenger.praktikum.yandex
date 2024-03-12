@@ -1,3 +1,5 @@
+import { queryStringify } from '../../utils/mydash/queryStringify';
+
 enum METHODS {
   GET = 'GET',
   PUT = 'PUT',
@@ -5,57 +7,49 @@ enum METHODS {
   DELETE = 'DELETE',
 }
 
-type optionsType = {
+type Options = {
   method?: METHODS.GET | METHODS.PUT | METHODS.POST | METHODS.DELETE;
   headers?: { [key: string]: string };
   data?: { [key: string]: unknown };
   timeout?: number;
 };
 
-function queryStringify(data: { [key: string]: unknown }) {
-  if (typeof data !== 'object') {
-    throw new Error('Data must be object');
-  }
-
-  return `?${Object.entries(data)
-    .map(([key, value]) => `${key}=${value}`)
-    .join('&')}`;
-}
+type HTTPMethod = (url: string, options?: Options) => Promise<unknown>;
 
 export class HTTPTransport {
-  get = (url: string, options: optionsType) => {
+  get: HTTPMethod = (url, options) => {
     return this.request(
       url,
       { ...options, method: METHODS.GET },
-      options.timeout,
+      options?.timeout,
     );
   };
 
-  put = (url: string, options: optionsType) => {
+  put: HTTPMethod = (url, options) => {
     return this.request(
       url,
       { ...options, method: METHODS.PUT },
-      options.timeout,
+      options?.timeout,
     );
   };
 
-  post = (url: string, options: optionsType) => {
+  post: HTTPMethod = (url, options) => {
     return this.request(
       url,
       { ...options, method: METHODS.POST },
-      options.timeout,
+      options?.timeout,
     );
   };
 
-  delete = (url: string, options: optionsType) => {
+  delete: HTTPMethod = (url, options) => {
     return this.request(
       url,
       { ...options, method: METHODS.DELETE },
-      options.timeout,
+      options?.timeout,
     );
   };
 
-  request = (url: string, options: optionsType = {}, timeout = 5000) => {
+  request = (url: string, options: Options = {}, timeout = 5000) => {
     const { method = METHODS.GET, headers = {}, data = {} } = options;
 
     return new Promise((resolve, reject) => {

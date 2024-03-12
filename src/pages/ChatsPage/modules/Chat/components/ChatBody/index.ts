@@ -2,7 +2,7 @@ import './style.scss';
 
 import Component, {
   componentPropsTypes,
-} from '../../../../../services/Component';
+} from '../../../../../../services/Component';
 import template from './index.hbs?raw';
 
 export class ChatBody extends Component {

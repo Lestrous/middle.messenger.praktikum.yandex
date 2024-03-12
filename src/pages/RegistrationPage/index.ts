@@ -2,7 +2,6 @@ import './style.scss';
 
 import { Button } from '../../components/Button';
 import { Header } from '../../components/Header';
-import { Input } from '../../components/Input';
 import { TextLink } from '../../components/TextLink';
 import { Form } from '../../modules/Form';
 import { FormInput } from '../../modules/Form/components/FormInput';
@@ -14,196 +13,67 @@ export class RegistrationPage extends Component {
   constructor() {
     const validator = new Validator();
 
-    let emailFormInput: FormInput | undefined = undefined;
-    let loginFormInput: FormInput | undefined = undefined;
-    let firstNameFormInput: FormInput | undefined = undefined;
-    let secondNameFormInput: FormInput | undefined = undefined;
-    let phoneFormInput: FormInput | undefined = undefined;
-    let passwordFormInput: FormInput | undefined = undefined;
-    let passwordAgainFormInput: FormInput | undefined = undefined;
-
-    const validateEmail = () => {
-      if (!emailFormInput) {
-        return false;
-      }
-
-      const email = emailFormInput.getInputValue();
-      const isEmailValid = validator.validateEmail(email);
-
-      emailFormInput.setProps({
-        showErrorMessage: !isEmailValid,
-      });
-
-      return isEmailValid;
-    };
-
-    emailFormInput = new FormInput({
+    const emailFormInput = new FormInput({
       text: 'Почта',
-      input: new Input({
-        name: 'email',
-        type: 'email',
-        inputType: 'form_input',
-        onBlur: validateEmail,
-      }),
-      errorMessage: 'Неверная почта',
+      name: 'email',
+      type: 'email',
+      validation: validator.validateEmail,
     });
 
-    const validateLogin = () => {
-      if (!loginFormInput) {
-        return false;
-      }
-
-      const login = loginFormInput.getInputValue();
-      const isLoginValid = validator.validateLogin(login);
-
-      loginFormInput.setProps({
-        showErrorMessage: !isLoginValid,
-      });
-
-      return isLoginValid;
-    };
-
-    loginFormInput = new FormInput({
+    const loginFormInput = new FormInput({
       text: 'Логин',
-      input: new Input({
-        name: 'login',
-        type: 'text',
-        inputType: 'form_input',
-        onBlur: validateLogin,
-      }),
-      errorMessage: 'Неверный логин',
+      name: 'login',
+      type: 'text',
+      validation: validator.validateLogin,
     });
 
-    const validateFirstName = () => {
-      if (!firstNameFormInput) {
-        return false;
-      }
-
-      const firstName = firstNameFormInput.getInputValue();
-      const isFirstNameValid = validator.validateName(firstName);
-
-      firstNameFormInput.setProps({
-        showErrorMessage: !isFirstNameValid,
-      });
-
-      return isFirstNameValid;
-    };
-
-    firstNameFormInput = new FormInput({
+    const firstNameFormInput = new FormInput({
       text: 'Имя',
-      input: new Input({
-        name: 'first_name',
-        type: 'text',
-        inputType: 'form_input',
-        onBlur: validateFirstName,
-      }),
-      errorMessage: 'Неправльное имя',
+      name: 'first_name',
+      type: 'text',
+      validation: validator.validateName,
     });
 
-    const validateSecondName = () => {
-      if (!secondNameFormInput) {
-        return false;
-      }
-
-      const secondName = secondNameFormInput.getInputValue();
-      const isSecondNameValid = validator.validateName(secondName);
-
-      secondNameFormInput.setProps({
-        showErrorMessage: !isSecondNameValid,
-      });
-
-      return isSecondNameValid;
-    };
-
-    secondNameFormInput = new FormInput({
+    const secondNameFormInput = new FormInput({
       text: 'Фамилия',
-      input: new Input({
-        name: 'second_name',
-        type: 'text',
-        inputType: 'form_input',
-        onBlur: validateSecondName,
-      }),
-      errorMessage: 'Неправльная фамилия',
+      name: 'second_name',
+      type: 'text',
+      validation: validator.validateName,
     });
 
-    const validatePhone = () => {
-      if (!phoneFormInput) {
-        return false;
-      }
-
-      const phone = phoneFormInput.getInputValue();
-      const isPhoneValid = validator.validatesPhone(phone);
-
-      phoneFormInput.setProps({
-        showErrorMessage: !isPhoneValid,
-      });
-
-      return isPhoneValid;
-    };
-
-    phoneFormInput = new FormInput({
+    const phoneFormInput = new FormInput({
       text: 'Телефон',
-      input: new Input({
-        name: 'phone',
-        type: 'tel',
-        inputType: 'form_input',
-        onBlur: validatePhone,
-      }),
-      errorMessage: 'Неправльный телефон',
+      name: 'phone',
+      type: 'tel',
+      validation: validator.validatePhone,
     });
 
-    const validatePassword = () => {
-      if (!passwordFormInput) {
-        return false;
-      }
-
-      const password = passwordFormInput.getInputValue();
-      const isPasswordValid = validator.validatePassword(password);
-
-      passwordFormInput.setProps({
-        showErrorMessage: !isPasswordValid,
-      });
-
-      return isPasswordValid;
-    };
-
-    passwordFormInput = new FormInput({
+    const passwordFormInput = new FormInput({
       text: 'Пароль',
-      input: new Input({
-        name: 'password',
-        type: 'password',
-        inputType: 'form_input',
-        onBlur: validatePassword,
-      }),
-      errorMessage: 'Неверный пароль',
+      name: 'password',
+      type: 'password',
+      validation: validator.validatePassword,
     });
 
-    const validatePasswordAgain = () => {
-      if (!passwordAgainFormInput || !passwordFormInput) {
-        return false;
-      }
+    const passwordAgainFormInput = new FormInput({
+      text: 'Пароль (ещё раз)',
+      name: 'password_again',
+      type: 'password',
+      validation: validator.validatePassword,
+    });
 
+    const validateEqualPasswords = () => {
       const password = passwordFormInput.getInputValue();
       const passwordAgain = passwordAgainFormInput.getInputValue();
       const isEqualPasswords = password === passwordAgain;
 
       passwordAgainFormInput.setProps({
+        errorMessage: 'Пароли должны совпадать',
         showErrorMessage: !isEqualPasswords,
       });
 
       return isEqualPasswords;
     };
-
-    passwordAgainFormInput = new FormInput({
-      text: 'Пароль (ещё раз)',
-      input: new Input({
-        name: 'password_again',
-        type: 'password',
-        inputType: 'form_input',
-        onBlur: validatePasswordAgain,
-      }),
-      errorMessage: 'Пароли должны совпадать',
-    });
 
     const registrationForm = new Form({
       header: new Header({
@@ -234,13 +104,13 @@ export class RegistrationPage extends Component {
       onSubmit: (event: SubmitEvent) => {
         event.preventDefault();
 
-        const isValidEmail = validateEmail();
-        const isValidLogin = validateLogin();
-        const isValidFirstName = validateFirstName();
-        const isValidSecondName = validateSecondName();
-        const isValidPhone = validatePhone();
-        const isValidPassword = validatePassword();
-        const isValidPasswordAgain = validatePasswordAgain();
+        const isValidEmail = emailFormInput.validate();
+        const isValidLogin = loginFormInput.validate();
+        const isValidFirstName = firstNameFormInput.validate();
+        const isValidSecondName = secondNameFormInput.validate();
+        const isValidPhone = phoneFormInput.validate();
+        const isValidPassword = passwordFormInput.validate();
+        const isValidPasswordAgain = passwordAgainFormInput.validate();
 
         const isValidFormData =
           isValidEmail &&
@@ -251,21 +121,26 @@ export class RegistrationPage extends Component {
           isValidPassword &&
           isValidPasswordAgain;
 
-        if (isValidFormData) {
-          const formData = registrationForm.getFormData();
-
-          const data = {
-            email: formData.get('email'),
-            login: formData.get('login'),
-            first_name: formData.get('first_name'),
-            second_name: formData.get('second_name'),
-            phone: formData.get('phone'),
-            password: formData.get('password'),
-            password_again: formData.get('password_again'),
-          };
-
-          console.log(data);
+        if (!isValidFormData) {
+          return;
         }
+
+        if (!validateEqualPasswords()) {
+          return;
+        }
+
+        const formData = registrationForm.getFormData();
+
+        const data = {
+          email: formData.get('email'),
+          login: formData.get('login'),
+          first_name: formData.get('first_name'),
+          second_name: formData.get('second_name'),
+          phone: formData.get('phone'),
+          password: formData.get('password'),
+        };
+
+        console.log(data);
       },
     });
 
