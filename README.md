@@ -5,11 +5,10 @@
 [Макет](https://www.figma.com/file/jF5fFFzgGOxQeB4CmKWTiE/Chat_external_link?node-id=0%3A1)
 
 Страницы сайта:
-- [Временная навигация](https://zippy-naiad-0e9543.netlify.app/)
-- [Авторизация](https://zippy-naiad-0e9543.netlify.app/login/)
-- [Регистрация](https://zippy-naiad-0e9543.netlify.app/registration/)
-- [Профиль](https://zippy-naiad-0e9543.netlify.app/profile/)
-- [Чаты](https://zippy-naiad-0e9543.netlify.app/chats/)
+- [Авторизация](https://zippy-naiad-0e9543.netlify.app/)
+- [Регистрация](https://zippy-naiad-0e9543.netlify.app/sign-up/)
+- [Профиль](https://zippy-naiad-0e9543.netlify.app/settings/)
+- [Чаты](https://zippy-naiad-0e9543.netlify.app/messenger/)
 - [500](https://zippy-naiad-0e9543.netlify.app/500/)
 - [404](https://zippy-naiad-0e9543.netlify.app/404/)
 

@@ -9,7 +9,7 @@ import Component from '../../services/Component';
 import { Validator } from '../../services/Validator';
 import template from './index.hbs?raw';
 
-export class LoginPage extends Component {
+export class SignInPage extends Component {
   constructor() {
     const validator = new Validator();
 
@@ -27,7 +27,7 @@ export class LoginPage extends Component {
       validation: validator.validatePassword,
     });
 
-    const loginForm = new Form({
+    const signInForm = new Form({
       header: new Header({
         headerLevel: 2,
         text: 'Вход',
@@ -40,7 +40,7 @@ export class LoginPage extends Component {
       }),
       formInputs: [loginFormInput, passwordFormInput],
       link: new TextLink({
-        href: '/registration/',
+        href: '/sign-up/',
         text: 'Нет аккаунта?',
         className: 'form__link',
       }),
@@ -57,7 +57,7 @@ export class LoginPage extends Component {
           return;
         }
 
-        const formData = loginForm.getFormData();
+        const formData = signInForm.getFormData();
 
         const data = {
           login: formData.get('login'),
@@ -69,8 +69,8 @@ export class LoginPage extends Component {
     });
 
     super('main', {
-      loginForm,
-      id: 'login',
+      signInForm,
+      id: 'sign-in',
     });
   }
 

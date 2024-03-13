@@ -10,12 +10,12 @@ import { EmptyChatBlock } from './components/EmptyChatBlock';
 import template from './index.hbs?raw';
 import { Chat } from './modules/Chat';
 
-type chatsPagePropsType = {
+type messengerPagePropsType = {
   activeChatId?: string;
 };
 
-export class ChatsPage extends Component {
-  constructor(props?: chatsPagePropsType) {
+export class MessengerPage extends Component {
+  constructor(props?: messengerPagePropsType) {
     const openChat = (chatId: string) => {
       this.setProps({
         activeChatId: chatId,
@@ -25,7 +25,7 @@ export class ChatsPage extends Component {
 
     super('main', {
       profileLink: new TextLink({
-        href: '/profile/',
+        href: '/settings/',
         text: 'Профиль',
         className: 'link_secondary chats-container__profile-link',
       }),
