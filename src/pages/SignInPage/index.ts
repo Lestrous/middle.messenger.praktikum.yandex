@@ -1,13 +1,18 @@
 import './style.scss';
 
+import { AuthAPI } from '../../api/AuthAPI';
 import { Button } from '../../components/Button';
 import { Header } from '../../components/Header';
 import { TextLink } from '../../components/TextLink';
 import { Form } from '../../modules/Form';
 import { FormInput } from '../../modules/Form/components/FormInput';
 import Component from '../../services/Component';
+import { Router, ROUTES } from '../../services/Router';
 import { Validator } from '../../services/Validator';
 import template from './index.hbs?raw';
+
+const authAPI = new AuthAPI();
+const router = new Router('#root');
 
 export class SignInPage extends Component {
   constructor() {
@@ -40,7 +45,7 @@ export class SignInPage extends Component {
       }),
       formInputs: [loginFormInput, passwordFormInput],
       link: new TextLink({
-        href: '/sign-up/',
+        href: ROUTES.signUp,
         text: 'Нет аккаунта?',
         className: 'form__link',
       }),
@@ -64,7 +69,12 @@ export class SignInPage extends Component {
           password: formData.get('password'),
         };
 
-        console.log(data);
+        authAPI
+          .signIn(data)
+          .then(() => router.go(ROUTES.messenger))
+          .catch((response: Response) => {
+            console.log(response);
+          });
       },
     });
 

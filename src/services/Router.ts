@@ -1,5 +1,17 @@
+import { AuthAPI } from '../api/AuthAPI';
 import Component from './Component';
 import { Route } from './Route';
+
+export enum ROUTES {
+  signIn = '/',
+  signUp = '/sign-up/',
+  settings = '/settings/',
+  messenger = '/messenger/',
+  page500 = '/500/',
+  page404 = '/404/',
+}
+
+const authAPI = new AuthAPI();
 
 export class Router {
   static __instance: Router;
@@ -7,7 +19,6 @@ export class Router {
   history = window.history;
   _currentRoute: Route | null = null;
   _rootQuery: string = '';
-  path404 = '/404/';
 
   constructor(rootQuery: string) {
     if (Router.__instance) {
@@ -45,8 +56,18 @@ export class Router {
     const route = this.getRoute(pathname);
 
     if (!route) {
-      this.go(this.path404);
+      this.go(ROUTES.page404);
       return;
+    }
+
+    if (
+      ![ROUTES.signIn, ROUTES.signUp, ROUTES.page500, ROUTES.page404].includes(
+        pathname as ROUTES,
+      )
+    ) {
+      authAPI.getUserInfo().catch(() => {
+        this.go(ROUTES.signIn);
+      });
     }
 
     if (this._currentRoute && this._currentRoute !== route) {
@@ -58,7 +79,7 @@ export class Router {
   }
 
   go(pathname: string) {
-    if (pathname !== this.path404) {
+    if (pathname !== ROUTES.page404) {
       history.pushState({}, '', pathname);
     }
 

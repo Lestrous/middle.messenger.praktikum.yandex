@@ -1,13 +1,18 @@
 import './style.scss';
 
+import { AuthAPI } from '../../api/AuthAPI';
 import { Button } from '../../components/Button';
 import { Header } from '../../components/Header';
 import { TextLink } from '../../components/TextLink';
 import { Form } from '../../modules/Form';
 import { FormInput } from '../../modules/Form/components/FormInput';
 import Component from '../../services/Component';
+import { Router, ROUTES } from '../../services/Router';
 import { Validator } from '../../services/Validator';
 import template from './index.hbs?raw';
+
+const authAPI = new AuthAPI();
+const router = new Router('#root');
 
 export class SignUpPage extends Component {
   constructor() {
@@ -96,12 +101,12 @@ export class SignUpPage extends Component {
         passwordAgainFormInput,
       ],
       link: new TextLink({
-        href: '/',
+        href: ROUTES.signIn,
         text: 'Войти',
         className: 'form__link',
       }),
       className: 'login__form',
-      onSubmit: (event: SubmitEvent) => {
+      onSubmit: async (event: SubmitEvent) => {
         event.preventDefault();
 
         const isValidEmail = emailFormInput.validate();
@@ -140,7 +145,12 @@ export class SignUpPage extends Component {
           password: formData.get('password'),
         };
 
-        console.log(data);
+        authAPI
+          .signUp(data)
+          .then(() => router.go(ROUTES.messenger))
+          .catch((response: Response) => {
+            console.log(response);
+          });
       },
     });
 

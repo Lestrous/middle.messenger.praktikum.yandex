@@ -5,6 +5,7 @@ import { Header } from '../../components/Header';
 import { Input } from '../../components/Input';
 import { TextLink } from '../../components/TextLink';
 import Component from '../../services/Component';
+import { ROUTES } from '../../services/Router';
 import { ChatCard } from './components/ChatCard';
 import { EmptyChatBlock } from './components/EmptyChatBlock';
 import template from './index.hbs?raw';
@@ -25,7 +26,7 @@ export class MessengerPage extends Component {
 
     super('main', {
       profileLink: new TextLink({
-        href: '/settings/',
+        href: ROUTES.settings,
         text: 'Профиль',
         className: 'link_secondary chats-container__profile-link',
       }),

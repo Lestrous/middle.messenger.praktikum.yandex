@@ -16,42 +16,49 @@ type Options = {
   responseType?: XMLHttpRequestResponseType;
 };
 
-type HTTPMethod = (url: string, options?: Options) => Promise<unknown>;
+type HTTPMethod = (urlPart: string, options?: Options) => Promise<unknown>;
 
 export class HTTPTransport {
-  get: HTTPMethod = (url, options) => {
+  requestPath: string = 'https://ya-praktikum.tech/api/v2';
+  path: string;
+
+  constructor(path: string) {
+    this.path = this.requestPath + path;
+  }
+
+  get: HTTPMethod = (urlPart, options) => {
     return this.request(
-      url,
+      urlPart,
       { ...options, method: METHODS.GET },
       options?.timeout,
     );
   };
 
-  put: HTTPMethod = (url, options) => {
+  put: HTTPMethod = (urlPart, options) => {
     return this.request(
-      url,
+      urlPart,
       { ...options, method: METHODS.PUT },
       options?.timeout,
     );
   };
 
-  post: HTTPMethod = (url, options) => {
+  post: HTTPMethod = (urlPart, options) => {
     return this.request(
-      url,
+      urlPart,
       { ...options, method: METHODS.POST },
       options?.timeout,
     );
   };
 
-  delete: HTTPMethod = (url, options) => {
+  delete: HTTPMethod = (urlPart, options) => {
     return this.request(
-      url,
+      urlPart,
       { ...options, method: METHODS.DELETE },
       options?.timeout,
     );
   };
 
-  request = (url: string, options: Options = {}, timeout = 5000) => {
+  request = (urlPart: string, options: Options = {}, timeout = 60000) => {
     const {
       method = METHODS.GET,
       headers = {},
@@ -68,8 +75,10 @@ export class HTTPTransport {
 
       const xhr = new XMLHttpRequest();
 
+      let url = `${this.path}${urlPart}`;
+
       if (method === METHODS.GET && Object.keys(data).length) {
-        url = `${url}${queryStringify(data)}`;
+        url = `${this.path}${urlPart}${queryStringify(data)}`;
       }
 
       xhr.open(method, url);
@@ -79,7 +88,22 @@ export class HTTPTransport {
       }
 
       xhr.onload = function () {
-        resolve(xhr);
+        const status = xhr.status || 0;
+
+        if (status >= 200 && status < 300) {
+          resolve(xhr);
+        } else {
+          const message = {
+            '0': 'abort',
+            '100': 'Information',
+            '200': 'Ok',
+            '300': 'Redirect failed',
+            '400': 'Access error',
+            '500': 'Internal server error',
+          }[Math.floor(status / 100) * 100];
+
+          reject({ status, reason: xhr.response?.reason || message });
+        }
       };
 
       xhr.onerror = reject;

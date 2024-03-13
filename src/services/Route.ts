@@ -11,14 +11,14 @@ function getCorrectedPathname(pathname: string) {
 
 export class Route {
   _pathname: string;
-  _blockClass: typeof Component;
-  _block: Component | null;
+  _componentClass: typeof Component;
+  _component: Component | null;
   _props: RouteProps;
 
   constructor(pathname: string, view: typeof Component, props: RouteProps) {
     this._pathname = getCorrectedPathname(pathname);
-    this._blockClass = view;
-    this._block = null;
+    this._componentClass = view;
+    this._component = null;
     this._props = props;
   }
 
@@ -32,8 +32,14 @@ export class Route {
   }
 
   leave() {
-    if (this._block) {
-      this._block.hide();
+    if (this._component) {
+      const rootQueryElement = document.querySelector(this._props.rootQuery);
+
+      if (rootQueryElement) {
+        rootQueryElement.innerHTML = '';
+      }
+
+      this._component.hide();
     }
   }
 
@@ -44,12 +50,13 @@ export class Route {
   }
 
   render() {
-    if (!this._block) {
-      this._block = new this._blockClass();
-      render(this._props.rootQuery, this._block);
+    if (!this._component) {
+      this._component = new this._componentClass();
+      render(this._props.rootQuery, this._component);
       return;
     }
 
-    this._block.show();
+    render(this._props.rootQuery, this._component);
+    this._component.show();
   }
 }
