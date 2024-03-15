@@ -1,8 +1,11 @@
 import { render } from '../utils/renderDOM';
 import Component from './Component';
 
-type RouteProps = {
+export type RouteProps = {
   rootQuery: string;
+  title: string;
+  onlyAuthorized?: boolean;
+  onlyNotAuthorized?: boolean;
 };
 
 function getCorrectedPathname(pathname: string) {
@@ -19,7 +22,11 @@ export class Route {
     this._pathname = getCorrectedPathname(pathname);
     this._componentClass = view;
     this._component = null;
-    this._props = props;
+    this._props = {
+      ...props,
+      onlyAuthorized: !!props.onlyAuthorized,
+      onlyNotAuthorized: !!props.onlyNotAuthorized,
+    };
   }
 
   navigate(pathname: string) {
@@ -27,6 +34,7 @@ export class Route {
 
     if (this.match(pathname)) {
       this._pathname = pathname;
+      document.title = this._props.title;
       this.render();
     }
   }
@@ -58,5 +66,13 @@ export class Route {
 
     render(this._props.rootQuery, this._component);
     this._component.show();
+  }
+
+  isOnlyAuthorized() {
+    return this._props.onlyAuthorized;
+  }
+
+  isOnlyNotAuthorized() {
+    return this._props.onlyNotAuthorized;
   }
 }

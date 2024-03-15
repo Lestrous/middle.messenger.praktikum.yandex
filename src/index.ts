@@ -12,10 +12,22 @@ import { Router, ROUTES } from './services/Router';
 const router = new Router('#root');
 
 router
-  .use(ROUTES.signIn, SignInPage)
-  .use(ROUTES.signUp, SignUpPage)
-  .use(ROUTES.settings, SettingsPage)
-  .use(ROUTES.messenger, MessengerPage as typeof Component)
-  .use(ROUTES.page500, Page500)
-  .use(ROUTES.page404, Page404)
+  .use(ROUTES.signIn, SignInPage, {
+    title: 'Авторизация',
+    onlyNotAuthorized: true,
+  })
+  .use(ROUTES.signUp, SignUpPage, {
+    title: 'Регистрация',
+    onlyNotAuthorized: true,
+  })
+  .use(ROUTES.settings, SettingsPage, {
+    title: 'Профиль',
+    onlyAuthorized: true,
+  })
+  .use(ROUTES.messenger, MessengerPage as typeof Component, {
+    title: 'Мессенджер',
+    onlyAuthorized: true,
+  })
+  .use(ROUTES.page500, Page500, { title: 'Ошибка 500' })
+  .use(ROUTES.page404, Page404, { title: 'Страница не существует' })
   .start();

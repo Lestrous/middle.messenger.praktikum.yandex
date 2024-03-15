@@ -2,6 +2,10 @@ export type PlainObject<T = unknown> = {
   [k in string]: T;
 };
 
+export type Indexed<T = unknown> = {
+  [key in string]: T;
+};
+
 export function isArray(value: unknown): value is [] {
   return Array.isArray(value);
 }

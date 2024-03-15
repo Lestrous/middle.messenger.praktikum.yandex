@@ -8,6 +8,7 @@ import { Form } from '../../modules/Form';
 import { FormInput } from '../../modules/Form/components/FormInput';
 import Component from '../../services/Component';
 import { Router, ROUTES } from '../../services/Router';
+import { authorizeUser } from '../../services/store/storeHelpers';
 import { Validator } from '../../services/Validator';
 import template from './index.hbs?raw';
 
@@ -147,6 +148,7 @@ export class SignUpPage extends Component {
 
         authAPI
           .signUp(data)
+          .then(authorizeUser)
           .then(() => router.go(ROUTES.messenger))
           .catch((response: Response) => {
             console.log(response);

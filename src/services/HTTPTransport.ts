@@ -91,7 +91,7 @@ export class HTTPTransport {
         const status = xhr.status || 0;
 
         if (status >= 200 && status < 300) {
-          resolve(xhr);
+          resolve(xhr.response);
         } else {
           const message = {
             '0': 'abort',

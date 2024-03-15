@@ -1,5 +1,6 @@
 import './style.scss';
 
+import { Indexed } from '../../../utils/typesHelpers';
 import { AuthAPI } from '../../api/AuthAPI';
 import { Avatar } from '../../components/Avatar';
 import { Button } from '../../components/Button';
@@ -8,6 +9,8 @@ import { Header } from '../../components/Header';
 import { InfoBlock } from '../../components/InfoBlock';
 import Component from '../../services/Component';
 import { Router, ROUTES } from '../../services/Router';
+import { logOutUser } from '../../services/store/Actions';
+import { connect } from '../../services/store/connect';
 import template from './index.hbs?raw';
 import { changeProfileDataModalDialog } from './sections/changeProfileDataModalDialog';
 import { changeProfilePasswordModalDialog } from './sections/changeProfilePasswordModalDialog';
@@ -17,6 +20,14 @@ const router = new Router('#root');
 
 export class SettingsPage extends Component {
   constructor() {
+    const InfoBlockConnected = (paramCode: string) =>
+      connect(
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-expect-error
+        InfoBlock,
+        (state) => ({ paramValue: (state.user as Indexed)[paramCode] }),
+      );
+
     super('main', {
       goBackBlock: new GoBackBlock({}),
       avatar: new Avatar({
@@ -29,15 +40,27 @@ export class SettingsPage extends Component {
         className: 'profile__header',
       }),
       userInfo: [
-        { param: 'Почта', paramValue: 'pochta@yandex.ru' },
-        { param: 'Логин', paramValue: 'ivanivanov' },
-        { param: 'Имя', paramValue: 'Иван' },
-        { param: 'Фамилия', paramValue: 'Иванов' },
-        { param: 'Имя в чате', paramValue: 'Иван' },
-        { param: 'Телефон', paramValue: '+7 (909) 967 30 30' },
+        {
+          param: 'Почта',
+          paramValue: 'pochta@yandex.ru',
+          paramCode: 'email',
+        },
+        { param: 'Логин', paramValue: 'ivanivanov', paramCode: 'login' },
+        { param: 'Имя', paramValue: 'Иван', paramCode: 'first_name' },
+        { param: 'Фамилия', paramValue: 'Иванов', paramCode: 'second_name' },
+        {
+          param: 'Имя в чате',
+          paramValue: 'Иван',
+          paramCode: 'display_name',
+        },
+        {
+          param: 'Телефон',
+          paramValue: '+7 (909) 967 30 30',
+          paramCode: 'phone',
+        },
       ].map(
-        (userInfoItem) =>
-          new InfoBlock({
+        ({ paramCode, ...userInfoItem }) =>
+          new (InfoBlockConnected(paramCode))({
             ...userInfoItem,
             className: 'profile__data-item',
           }),
@@ -62,7 +85,10 @@ export class SettingsPage extends Component {
         onClick: () => {
           authAPI
             .logOut()
-            .then(() => router.go(ROUTES.signIn))
+            .then(logOutUser)
+            .then(() => {
+              router.go(ROUTES.signIn);
+            })
             .catch((response: Response) => {
               console.log(response);
             });

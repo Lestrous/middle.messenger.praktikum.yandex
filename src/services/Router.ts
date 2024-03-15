@@ -1,6 +1,11 @@
-import { AuthAPI } from '../api/AuthAPI';
 import Component from './Component';
-import { Route } from './Route';
+import { Route, RouteProps } from './Route';
+import {
+  checkUserAppAuthorized,
+  isUserStoreAuthorized,
+} from './store/storeHelpers';
+
+type RouteOptions = Omit<RouteProps, 'rootQuery'>;
 
 export enum ROUTES {
   signIn = '/',
@@ -10,8 +15,6 @@ export enum ROUTES {
   page500 = '/500/',
   page404 = '/404/',
 }
-
-const authAPI = new AuthAPI();
 
 export class Router {
   static __instance: Router;
@@ -33,16 +36,19 @@ export class Router {
     Router.__instance = this;
   }
 
-  use(pathname: string, component: typeof Component) {
+  use(pathname: string, component: typeof Component, props: RouteOptions) {
     const route = new Route(pathname, component, {
       rootQuery: this._rootQuery,
+      ...props,
     });
     this.routes.push(route);
 
     return this;
   }
 
-  start() {
+  async start() {
+    await checkUserAppAuthorized();
+
     window.onpopstate = (event) => {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-expect-error
@@ -60,14 +66,14 @@ export class Router {
       return;
     }
 
-    if (
-      ![ROUTES.signIn, ROUTES.signUp, ROUTES.page500, ROUTES.page404].includes(
-        pathname as ROUTES,
-      )
-    ) {
-      authAPI.getUserInfo().catch(() => {
-        this.go(ROUTES.signIn);
-      });
+    const userAuthorized = isUserStoreAuthorized();
+
+    if (route.isOnlyAuthorized() && !userAuthorized) {
+      this.go(ROUTES.signIn);
+      return;
+    } else if (route.isOnlyNotAuthorized() && userAuthorized) {
+      this.go(ROUTES.messenger);
+      return;
     }
 
     if (this._currentRoute && this._currentRoute !== route) {
