@@ -1,53 +1,81 @@
+import { Indexed } from '../../../../utils/typesHelpers';
 import { Button } from '../../../components/Button';
 import { Header } from '../../../components/Header';
 import { Form } from '../../../modules/Form';
 import { FormInput } from '../../../modules/Form/components/FormInput';
 import { ModalDialog } from '../../../modules/ModalDialog';
+import { connect } from '../../../services/store/connect';
 import { Validator } from '../../../services/Validator';
 
 const validator = new Validator();
 
-const emailFormInput = new FormInput({
+const getFormInputMapStateToProps =
+  (valueCode: string) => (state: Indexed) => ({
+    inputValue: (state.user as Indexed)[valueCode],
+  });
+
+const FormInputConnected = (valueCode: string) =>
+  connect(
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
+    FormInput,
+    getFormInputMapStateToProps(valueCode),
+  );
+
+const emailName = 'email';
+const emailFormInput = new (FormInputConnected(emailName))({
   text: 'Почта',
-  name: 'email',
+  name: emailName,
   type: 'email',
   validation: validator.validateEmail,
-});
+  mapStateToProps: getFormInputMapStateToProps(emailName),
+}) as FormInput;
 
-const loginFormInput = new FormInput({
+const loginName = 'login';
+const loginFormInput = new (FormInputConnected(loginName))({
   text: 'Логин',
-  name: 'login',
+  name: loginName,
   type: 'text',
+  inputValue: 'test',
   validation: validator.validateLogin,
-});
+  mapStateToProps: getFormInputMapStateToProps(loginName),
+}) as FormInput;
 
-const firstNameFormInput = new FormInput({
+const firstNameName = 'first_name';
+const firstNameFormInput = new (FormInputConnected(firstNameName))({
   text: 'Имя',
-  name: 'first_name',
+  name: firstNameName,
   type: 'text',
   validation: validator.validateName,
-});
+  mapStateToProps: getFormInputMapStateToProps(firstNameName),
+}) as FormInput;
 
-const secondNameFormInput = new FormInput({
+const secondNameName = 'second_name';
+const secondNameFormInput = new (FormInputConnected(secondNameName))({
   text: 'Фамилия',
-  name: 'second_name',
+  name: secondNameName,
   type: 'text',
   validation: validator.validateName,
-});
+  mapStateToProps: getFormInputMapStateToProps(secondNameName),
+}) as FormInput;
 
-const displayNameFormInput = new FormInput({
+const displayNameName = 'display_name';
+const displayNameFormInput = new (FormInputConnected(displayNameName))({
   text: 'Имя в чате',
-  name: 'display_name',
+  name: displayNameName,
   type: 'text',
   validation: validator.validateDisplayName,
-});
+  mapStateToProps: getFormInputMapStateToProps(displayNameName),
+}) as FormInput;
 
-const phoneFormInput = new FormInput({
+const phoneName = 'phone';
+const phoneFormInput = new (FormInputConnected(phoneName))({
   text: 'Телефон',
-  name: 'phone',
+  name: phoneName,
   type: 'tel',
   validation: validator.validatePhone,
-});
+  mapStateToProps: getFormInputMapStateToProps(phoneName),
+}) as FormInput;
 
 const modalHeader = 'Редактирование данных профиля';
 

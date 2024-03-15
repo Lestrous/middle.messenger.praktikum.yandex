@@ -2,6 +2,7 @@ import './style.scss';
 
 import { Input, InputPropTypeTypes } from '../../../../components/Input';
 import Component, { componentPropsTypes } from '../../../../services/Component';
+import Store, { StoreEvents } from '../../../../services/store/Store';
 import template from './index.hbs?raw';
 
 type FormInputPropsType = componentPropsTypes & {
@@ -9,9 +10,11 @@ type FormInputPropsType = componentPropsTypes & {
   text: string;
   name?: string;
   type: InputPropTypeTypes;
+  inputValue?: string;
   validation: CallableFunction;
   errorMessage?: string;
   showErrorMessage?: boolean;
+  mapStateToProps?: CallableFunction;
 };
 
 export class FormInput extends Component {
@@ -23,16 +26,33 @@ export class FormInput extends Component {
       className,
       name,
       type,
+      inputValue,
       formInputContainerClass = 'form__input-container',
       validation,
+      mapStateToProps,
       ...restProps
     } = props;
 
     const input = new Input({
       name,
       type,
+      value: inputValue,
       inputType: 'form_input',
     });
+
+    if (mapStateToProps) {
+      Store.on(StoreEvents.Updated, () => {
+        const stateToProps = { ...mapStateToProps(Store.getState()) };
+
+        this.setProps(stateToProps);
+
+        if (Object.prototype.hasOwnProperty.call(stateToProps, 'inputValue')) {
+          input.setProps({
+            value: stateToProps.inputValue,
+          });
+        }
+      });
+    }
 
     super('label', {
       className: `form-input-container ${formInputContainerClass ?? ''} ${className ?? ''}`,

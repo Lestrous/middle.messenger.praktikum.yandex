@@ -40,24 +40,12 @@ export class SettingsPage extends Component {
         className: 'profile__header',
       }),
       userInfo: [
-        {
-          param: 'Почта',
-          paramValue: 'pochta@yandex.ru',
-          paramCode: 'email',
-        },
-        { param: 'Логин', paramValue: 'ivanivanov', paramCode: 'login' },
-        { param: 'Имя', paramValue: 'Иван', paramCode: 'first_name' },
-        { param: 'Фамилия', paramValue: 'Иванов', paramCode: 'second_name' },
-        {
-          param: 'Имя в чате',
-          paramValue: 'Иван',
-          paramCode: 'display_name',
-        },
-        {
-          param: 'Телефон',
-          paramValue: '+7 (909) 967 30 30',
-          paramCode: 'phone',
-        },
+        { param: 'Почта', paramCode: 'email' },
+        { param: 'Логин', paramCode: 'login' },
+        { param: 'Имя', paramCode: 'first_name' },
+        { param: 'Фамилия', paramCode: 'second_name' },
+        { param: 'Имя в чате', paramCode: 'display_name' },
+        { param: 'Телефон', paramCode: 'phone' },
       ].map(
         ({ paramCode, ...userInfoItem }) =>
           new (InfoBlockConnected(paramCode))({
