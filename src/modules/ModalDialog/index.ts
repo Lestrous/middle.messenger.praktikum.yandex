@@ -7,11 +7,14 @@ type ModalDialogPropsType = componentPropsTypes & {
   'aria-label': string;
   content: Component;
   dialogClass?: string;
+  onCloseModal?: CallableFunction;
 };
 
 export class ModalDialog extends Component {
+  _onCloseModal: CallableFunction | undefined;
+
   constructor(props: ModalDialogPropsType) {
-    const { className, ...restProps } = props;
+    const { className, onCloseModal, ...restProps } = props;
 
     super('dialog', {
       className: `dialog ${className ?? ''}`,
@@ -21,10 +24,18 @@ export class ModalDialog extends Component {
 
         if (isClickedOnBackDrop && dialogElement) {
           (dialogElement as HTMLDialogElement).close();
+
+          if (onCloseModal) {
+            onCloseModal();
+          }
         }
       },
       ...restProps,
     });
+
+    if (onCloseModal) {
+      this._onCloseModal = onCloseModal;
+    }
   }
 
   showModal() {
@@ -33,6 +44,10 @@ export class ModalDialog extends Component {
 
   closeModal() {
     (this.element as HTMLDialogElement).close();
+
+    if (this._onCloseModal) {
+      this._onCloseModal();
+    }
   }
 
   render() {

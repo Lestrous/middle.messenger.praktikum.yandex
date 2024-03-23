@@ -1,0 +1,32 @@
+@import '../../../../../../styles/colors';
+
+.message-container {
+  width: 100%;
+
+  .message {
+    display: flex;
+    max-width: 400px;
+    padding: 11px;
+    background-color: $light-blue;
+    color: $black;
+    border-radius: 12px;
+    font-size: 12px;
+    gap: 10px;
+
+    .message__time {
+      color: $blue;
+      font-size: 9px;
+      align-self: end;
+    }
+  }
+
+  .message_yours {
+    float: right;
+    border-bottom-right-radius: 0;
+  }
+
+  .message_someones {
+    float: left;
+    border-bottom-left-radius: 0;
+  }
+}

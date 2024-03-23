@@ -2,13 +2,16 @@
 
 .form {
   width: 340px;
-  min-height: 450px;
   display: flex;
   flex-direction: column;
   align-items: center;
   border-radius: 12px;
   box-shadow: 0 0 6px 0 rgb(0 0 0 / 14%);
   padding: 50px 30px 30px;
+
+  &_min-height {
+    min-height: 450px;
+  }
 
   .form__header {
     margin-bottom: 40px;
