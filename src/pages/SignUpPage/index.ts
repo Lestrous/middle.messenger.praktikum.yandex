@@ -106,7 +106,7 @@ export class SignUpPage extends Component {
         text: 'Войти',
         className: 'form__link',
       }),
-      className: 'login__form',
+      className: 'login__form form_min-height',
       onSubmit: async (event: SubmitEvent) => {
         event.preventDefault();
 
@@ -149,6 +149,9 @@ export class SignUpPage extends Component {
         authAPI
           .signUp(data)
           .then(authorizeUser)
+          .then(() => {
+            signUpForm.reset();
+          })
           .then(() => router.go(ROUTES.messenger))
           .catch((response: Response) => {
             console.log(response);

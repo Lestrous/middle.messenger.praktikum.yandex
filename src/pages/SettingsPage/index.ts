@@ -12,6 +12,7 @@ import { Router, ROUTES } from '../../services/Router';
 import { logOutUser } from '../../services/store/Actions';
 import { connect } from '../../services/store/connect';
 import template from './index.hbs?raw';
+import { changeProfileAvatarModalDialog } from './sections/changeProfileAvatarModalDialog';
 import { changeProfileDataModalDialog } from './sections/changeProfileDataModalDialog';
 import { changeProfilePasswordModalDialog } from './sections/changeProfilePasswordModalDialog';
 
@@ -20,6 +21,14 @@ const router = new Router('#root');
 
 export class SettingsPage extends Component {
   constructor() {
+    const AvatarConnected = () =>
+      connect(
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-expect-error
+        Avatar,
+        (state) => ({ avatarURL: (state.user as Indexed).avatar }),
+      );
+
     const InfoBlockConnected = (paramCode: string) =>
       connect(
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -28,15 +37,27 @@ export class SettingsPage extends Component {
         (state) => ({ paramValue: (state.user as Indexed)[paramCode] }),
       );
 
+    const HeaderConnected = () =>
+      connect(
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-expect-error
+        Header,
+        (state) => ({
+          text: `${(state.user as Indexed)['first_name']} ${(state.user as Indexed)['second_name']}`,
+        }),
+      );
+
     super('main', {
       goBackBlock: new GoBackBlock({}),
-      avatar: new Avatar({
+      avatar: new (AvatarConnected())({
         size: 130,
         className: 'profile__avatar',
+        onClick: () => {
+          changeProfileAvatarModalDialog.showModal();
+        },
       }),
-      header: new Header({
+      header: new (HeaderConnected())({
         headerLevel: 3,
-        text: 'General Kenobi',
         className: 'profile__header',
       }),
       userInfo: [
@@ -82,6 +103,7 @@ export class SettingsPage extends Component {
             });
         },
       }),
+      changeProfileAvatarModalDialog,
       changeProfileDataModalDialog,
       changeProfilePasswordModalDialog,
       id: 'profile',

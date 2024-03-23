@@ -1,3 +1,4 @@
+import { UserAPI } from '../../../api/UserAPI';
 import { Button } from '../../../components/Button';
 import { Header } from '../../../components/Header';
 import { Form } from '../../../modules/Form';
@@ -5,6 +6,7 @@ import { FormInput } from '../../../modules/Form/components/FormInput';
 import { ModalDialog } from '../../../modules/ModalDialog';
 import { Validator } from '../../../services/Validator';
 
+const userAPI = new UserAPI();
 const validator = new Validator();
 
 const currentPasswordFormInput = new FormInput({
@@ -83,14 +85,22 @@ const changeProfilePasswordForm = new Form({
       newPassword: formData.get('newPassword'),
     };
 
-    console.log(data);
-
-    changeProfilePasswordModalDialog.closeModal();
+    userAPI
+      .updatePasswordData(data)
+      .then(() => {
+        changeProfilePasswordForm.reset();
+        changeProfilePasswordModalDialog.closeModal();
+      })
+      .catch((response: Response) => {
+        console.log(response);
+      });
   },
 });
 
 export const changeProfilePasswordModalDialog = new ModalDialog({
   content: changeProfilePasswordForm,
   'aria-label': modalHeader,
-  className: 'profile-change-password-modal-dialog',
+  onCloseModal: () => {
+    changeProfilePasswordForm.reset();
+  },
 });

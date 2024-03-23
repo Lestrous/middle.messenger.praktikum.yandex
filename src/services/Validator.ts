@@ -152,4 +152,11 @@ export class Validator {
       error: '',
     };
   }
+
+  validateChatTitle(title: string) {
+    return {
+      isValidValue: !!title,
+      error: 'Название чата не может быть пустым',
+    };
+  }
 }

@@ -1,16 +1,20 @@
 import { Indexed } from '../../../../utils/typesHelpers';
+import { UserAPI } from '../../../api/UserAPI';
 import { Button } from '../../../components/Button';
 import { Header } from '../../../components/Header';
 import { Form } from '../../../modules/Form';
 import { FormInput } from '../../../modules/Form/components/FormInput';
 import { ModalDialog } from '../../../modules/ModalDialog';
+import { setUserData } from '../../../services/store/Actions';
 import { connect } from '../../../services/store/connect';
+import { StoreType } from '../../../services/store/Store';
 import { Validator } from '../../../services/Validator';
 
+const userAPI = new UserAPI();
 const validator = new Validator();
 
 const getFormInputMapStateToProps =
-  (valueCode: string) => (state: Indexed) => ({
+  (valueCode: string) => (state: StoreType) => ({
     inputValue: (state.user as Indexed)[valueCode],
   });
 
@@ -105,6 +109,7 @@ const changeProfileDataForm = new Form({
     const isValidLogin = loginFormInput.validate();
     const isValidFirstName = firstNameFormInput.validate();
     const isValidSecondName = secondNameFormInput.validate();
+    const isValidDisplayName = displayNameFormInput.validate();
     const isValidPhone = phoneFormInput.validate();
 
     const isValidFormData =
@@ -112,6 +117,7 @@ const changeProfileDataForm = new Form({
       isValidLogin &&
       isValidFirstName &&
       isValidSecondName &&
+      isValidDisplayName &&
       isValidPhone;
 
     if (!isValidFormData) {
@@ -121,21 +127,27 @@ const changeProfileDataForm = new Form({
     const formData = changeProfileDataForm.getFormData();
 
     const data = {
-      email: formData.get('email'),
-      login: formData.get('login'),
-      first_name: formData.get('first_name'),
-      second_name: formData.get('second_name'),
-      phone: formData.get('phone'),
+      email: formData.get(emailName),
+      login: formData.get(loginName),
+      first_name: formData.get(firstNameName),
+      second_name: formData.get(secondNameName),
+      display_name: formData.get(displayNameName),
+      phone: formData.get(phoneName),
     };
 
-    console.log(data);
-
-    changeProfileDataModalDialog.closeModal();
+    userAPI
+      .updateProfileData(data)
+      .then((data) => setUserData(data))
+      .then(() => {
+        changeProfileDataModalDialog.closeModal();
+      })
+      .catch((response: Response) => {
+        console.log(response);
+      });
   },
 });
 
 export const changeProfileDataModalDialog = new ModalDialog({
   content: changeProfileDataForm,
   'aria-label': modalHeader,
-  className: 'profile-change-data-modal-dialog',
 });

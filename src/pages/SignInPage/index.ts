@@ -29,7 +29,7 @@ export class SignInPage extends Component {
     const passwordFormInput = new FormInput({
       text: 'Пароль',
       name: 'password',
-      type: 'text',
+      type: 'password',
       validation: validator.validatePassword,
     });
 
@@ -50,7 +50,7 @@ export class SignInPage extends Component {
         text: 'Нет аккаунта?',
         className: 'form__link',
       }),
-      className: 'login__form',
+      className: 'login__form form_min-height',
       onSubmit: (event: SubmitEvent) => {
         event.preventDefault();
 
@@ -73,6 +73,9 @@ export class SignInPage extends Component {
         authAPI
           .signIn(data)
           .then(authorizeUser)
+          .then(() => {
+            signInForm.reset();
+          })
           .then(() => router.go(ROUTES.messenger))
           .catch((response: Response) => {
             console.log(response);

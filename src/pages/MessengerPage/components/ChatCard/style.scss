@@ -12,13 +12,13 @@
   font-size: 12px;
   cursor: pointer;
 
-  &:hover {
+  &:hover,
+  &:active,
+  &:focus {
     background-color: $light-blue-hover;
   }
 
-  &_card_active,
-  &:active,
-  &:focus {
+  &_active {
     background-color: $light-blue;
   }
 

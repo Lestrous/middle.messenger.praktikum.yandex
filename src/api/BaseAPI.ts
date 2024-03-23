@@ -1,5 +1,7 @@
 import { HTTPTransport } from '../services/HTTPTransport';
 
+export type FormDataEntryValueType = FormDataEntryValue | null;
+
 export class BaseAPI {
   transport: () => HTTPTransport;
 

@@ -1,6 +1,4 @@
-import { BaseAPI } from './BaseAPI';
-
-type FormDataEntryValueType = FormDataEntryValue | null;
+import { BaseAPI, FormDataEntryValueType } from './BaseAPI';
 
 type SignUpData = {
   first_name: FormDataEntryValueType;

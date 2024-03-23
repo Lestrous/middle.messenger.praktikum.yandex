@@ -24,7 +24,7 @@ router
     title: 'Профиль',
     onlyAuthorized: true,
   })
-  .use(ROUTES.messenger, MessengerPage as typeof Component, {
+  .use(ROUTES.messenger, MessengerPage as unknown as typeof Component, {
     title: 'Мессенджер',
     onlyAuthorized: true,
   })

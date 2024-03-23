@@ -11,6 +11,7 @@ type FormInputPropsType = componentPropsTypes & {
   name?: string;
   type: InputPropTypeTypes;
   inputValue?: string;
+  datalist?: { value: string | number; text: string }[];
   validation: CallableFunction;
   errorMessage?: string;
   showErrorMessage?: boolean;
@@ -36,6 +37,7 @@ export class FormInput extends Component {
     const input = new Input({
       name,
       type,
+      list: props.list,
       value: inputValue,
       inputType: 'form_input',
     });
@@ -85,12 +87,21 @@ export class FormInput extends Component {
   }
 
   render() {
-    const { formInputContainerClass, text, errorMessage, showErrorMessage } =
-      this._props;
+    const {
+      formInputContainerClass,
+      text,
+      datalist,
+      errorMessage,
+      showErrorMessage,
+    } = this._props;
+
+    const { list } = this._attributes;
 
     return this.compile(template, {
       formInputContainerClass,
       text,
+      list,
+      datalist,
       errorMessage,
       showErrorMessage,
     });

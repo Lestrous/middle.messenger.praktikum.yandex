@@ -1,5 +1,14 @@
 {{text}}
 {{{input}}}
+{{#if datalist}}
+  <datalist id="{{list}}">
+    {{#each datalist}}
+      {{#with this}}
+        <option value="{{this.value}}">{{this.text}}</option>
+      {{/with}}
+    {{/each}}
+  </datalist>
+{{/if}}
 {{#if showErrorMessage}}
   <span class="form-input-container__error-message">{{errorMessage}}</span>
 {{/if}}

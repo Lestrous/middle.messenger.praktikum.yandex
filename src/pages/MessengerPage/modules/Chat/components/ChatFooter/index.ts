@@ -21,9 +21,10 @@ export class ChatFooter extends Component {
       className: 'chat-footer__message-input',
       placeholder: 'Сообщение',
       name: 'message',
+      autocomplete: 'off',
     });
 
-    super('div', {
+    super('form', {
       className: `chat-footer ${className ?? ''}`,
       sendFileButton: new Button({
         className: 'chat-footer__send-file-button',
@@ -31,10 +32,14 @@ export class ChatFooter extends Component {
       messageInput,
       sendMessageButton: new Button({
         className: 'chat-footer__send-message-button',
-        onClick: () => {
-          onMessageSend(messageInput.getValue());
-        },
+        type: 'submit',
       }),
+      onSubmit: (event: SubmitEvent) => {
+        event.preventDefault();
+
+        onMessageSend(messageInput.getValue());
+        messageInput.clear();
+      },
       ...restProps,
     });
   }

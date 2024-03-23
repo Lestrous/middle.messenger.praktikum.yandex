@@ -10,7 +10,7 @@ enum METHODS {
 type Options = {
   method?: METHODS.GET | METHODS.PUT | METHODS.POST | METHODS.DELETE;
   headers?: { [key: string]: string };
-  data?: { [key: string]: unknown };
+  data?: { [key: string]: unknown } | FormData;
   timeout?: number;
   withCredentials?: boolean;
   responseType?: XMLHttpRequestResponseType;
@@ -78,7 +78,7 @@ export class HTTPTransport {
       let url = `${this.path}${urlPart}`;
 
       if (method === METHODS.GET && Object.keys(data).length) {
-        url = `${this.path}${urlPart}${queryStringify(data)}`;
+        url = `${this.path}${urlPart}?${queryStringify(data)}`;
       }
 
       xhr.open(method, url);
@@ -114,7 +114,10 @@ export class HTTPTransport {
       xhr.withCredentials = withCredentials;
       xhr.responseType = responseType;
 
-      if (method === METHODS.GET || !Object.keys(data).length) {
+      if (
+        method === METHODS.GET ||
+        (!Object.keys(data).length && !(data instanceof FormData))
+      ) {
         xhr.send();
       } else if (data instanceof FormData) {
         xhr.send(data);
