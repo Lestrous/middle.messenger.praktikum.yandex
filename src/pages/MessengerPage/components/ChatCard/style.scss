@@ -1,0 +1,71 @@
+@import '../../../../styles/colors';
+
+.chat-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+  padding: 12px 10px;
+  border-bottom: 1px solid $color-grey-ea;
+  color: $color-grey-99;
+  font-size: 12px;
+  cursor: pointer;
+
+  &:hover,
+  &:active,
+  &:focus {
+    background-color: $light-blue-hover;
+  }
+
+  &_active {
+    background-color: $light-blue;
+  }
+
+  &:last-of-type {
+    border-bottom: none;
+  }
+
+  &__avatar {
+    flex-basis: 47px;
+    flex-shrink: 0;
+  }
+
+  &__data {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    flex-grow: 1;
+    height: 100%;
+  }
+
+  &__header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 4px;
+  }
+
+  &_header {
+    color: $black;
+  }
+
+  &__time {
+    font-size: 9px;
+  }
+
+  &__info {
+    display: flex;
+    justify-content: space-between;
+    height: 30px;
+  }
+
+  &__text {
+    height: 100%;
+    overflow: hidden;
+  }
+
+  &__main_sender {
+    color: $black;
+  }
+}

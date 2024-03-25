@@ -1,6 +1,7 @@
 import { compile } from 'handlebars';
 import { v4 as makeUUID } from 'uuid';
 
+// import { cloneDeep } from '../../utils/mydash/cloneDeep';
 import { isEqual } from '../../utils/mydash/isEqual';
 import { EventBus } from './EventBus.js';
 
@@ -17,6 +18,7 @@ type eventPropType = {
   onClick?: CallableFunction;
   onBlur?: CallableFunction;
   onSubmit?: CallableFunction;
+  onInput?: CallableFunction;
 };
 
 type eventType = {
@@ -36,6 +38,9 @@ type attributesType = {
   placeholder?: string;
   href?: string;
   method?: string;
+  style?: string;
+  list?: string;
+  autocomplete?: string;
   'aria-label'?: string;
   [key: string]: string | undefined | unknown;
 };
@@ -65,9 +70,12 @@ export default class Component {
       'placeholder',
       'href',
       'method',
+      'style',
+      'list',
+      'autocomplete',
       'aria-label',
     ],
-    EVENTS: ['onClick', 'onBlur', 'onSubmit'],
+    EVENTS: ['onClick', 'onBlur', 'onSubmit', 'onInput'],
   };
 
   _props: propsType;
@@ -109,7 +117,12 @@ export default class Component {
     eventBus.emit(Component.EVENTS.INIT);
   }
 
-  _registerPropEvents({ onClick, onBlur, onSubmit }: eventPropType = {}) {
+  _registerPropEvents({
+    onClick,
+    onBlur,
+    onSubmit,
+    onInput,
+  }: eventPropType = {}) {
     const events: eventType = {};
 
     if (onClick) {
@@ -122,6 +135,10 @@ export default class Component {
 
     if (onSubmit) {
       events['submit'] = onSubmit;
+    }
+
+    if (onInput) {
+      events['input'] = onInput;
     }
 
     return events;
@@ -281,14 +298,13 @@ export default class Component {
     // eslint-disable-next-line @typescript-eslint/no-this-alias
     const self = this;
 
-    // Здесь вам предстоит реализовать метод
     return new Proxy(props, {
       get(target, prop: string) {
         const value = target[prop];
         return typeof value === 'function' ? value.bind(target) : value;
       },
       set(target, prop: string, value) {
-        if (!isEqual(target[prop], value)) {
+        if (JSON.stringify(target[prop]) !== JSON.stringify(value)) {
           target[prop] = value;
           self._setUpdate = true;
         }
@@ -396,10 +412,10 @@ export default class Component {
   }
 
   show() {
-    this.getContent().style.display = 'block';
+    this.getContent().classList.remove('hidden');
   }
 
   hide() {
-    this.getContent().style.display = 'none';
+    this.getContent().classList.add('hidden');
   }
 }

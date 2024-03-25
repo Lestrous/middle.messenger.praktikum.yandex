@@ -3,6 +3,7 @@ import './style.scss';
 import { Header } from '../../components/Header';
 import { TextLink } from '../../components/TextLink';
 import Component from '../../services/Component';
+import { ROUTES } from '../../services/Router';
 import template from './index.hbs?raw';
 
 export class Page500 extends Component {
@@ -20,7 +21,7 @@ export class Page500 extends Component {
     });
 
     const indexLink = new TextLink({
-      href: '/',
+      href: ROUTES.messenger,
       text: 'Назад к чатам',
     });
 

@@ -1,0 +1,15 @@
+@import '../../../../styles/colors';
+
+.chat {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  height: 100vh;
+
+  .chat__chat-body {
+    flex-basis: 100%;
+    border-bottom: 1px solid $color-grey-ea;
+    border-top: 1px solid $color-grey-ea;
+  }
+}

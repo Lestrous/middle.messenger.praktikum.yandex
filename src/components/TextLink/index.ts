@@ -1,7 +1,10 @@
 import './style.scss';
 
 import Component, { componentPropsTypes } from '../../services/Component';
+import { Router } from '../../services/Router';
 import template from './index.hbs?raw';
+
+const router = new Router('#root');
 
 type HeaderPropsType = componentPropsTypes & {
   href: string;
@@ -14,6 +17,11 @@ export class TextLink extends Component {
 
     super('a', {
       className: `link ${className ?? ''}`,
+      onClick: (event: Event) => {
+        event.preventDefault();
+
+        router.go(props.href);
+      },
       ...restProps,
     });
   }

@@ -1,0 +1,45 @@
+@import '../../../../../../styles/colors';
+
+.chat-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 54px;
+  padding: 11px 20px;
+  gap: 10px;
+  color: $black;
+
+  .chat-footer__send-file-button {
+    height: 32px;
+    width: 32px;
+    border-radius: 50%;
+    background-color: #fff;
+    vertical-align: middle;
+    background-image: url('../../../../../../../static/svg/clip.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    flex-shrink: 0;
+
+    &:hover,
+    &:active, {
+      background-color: $color-grey-ea;
+    }
+  }
+
+  .chat-footer__message-input {
+    flex-basis: 100%;
+  }
+
+  .chat-footer__send-message-button {
+    height: 32px;
+    width: 32px;
+    border-radius: 50%;
+    background-color: $blue;
+    vertical-align: middle;
+    background-image: url('../../../../../../../static/svg/arrow.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    flex-shrink: 0;
+  }
+}

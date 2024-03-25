@@ -1,0 +1,40 @@
+@import '../../../../styles/colors';
+
+.option {
+  display: flex;
+  align-items: center;
+  height: 38px;
+  padding: 8px 15px 8px 52px;
+  line-height: 38px;
+  background-repeat: no-repeat;
+  background-position-x: 15px;
+  background-position-y: 8px;
+  cursor: pointer;
+
+  &:first-of-type {
+    height: 40px;
+    padding-top: 10px;
+    line-height: 40px;
+    background-position-y: 10px;
+  }
+
+  &:last-of-type {
+    height: 40px;
+    padding-bottom: 10px;
+    line-height: 40px;
+  }
+
+  &:hover,
+  &:active,
+  &:focus {
+    background-color: $color-grey-f5;
+  }
+}
+
+.add-icon {
+  background-image: url('../../../../../static/svg/add.svg');
+}
+
+.delete-icon {
+  background-image: url('../../../../../static/svg/delete.svg');
+}
